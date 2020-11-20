@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'syllabus.apps.SyllabusConfig',
-    'unisyllabus'
 ]
 
 MIDDLEWARE = [
