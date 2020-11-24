@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.views import View
 from syllabus.models import *
@@ -12,26 +13,51 @@ class Login(View):
         return render(request, "login.html", {})
 
     def post(self, request):
+        isValid = False
         try:
-            m = MyUser.objects.get(username=request.POST['name'])
-            isValid = (m.password == request.POST['password'])
-        except:
+            m = Admin.objects.get(username=request.POST['name'])
+        except ObjectDoesNotExist:
             pass
+
+        try:
+            m = TA.objects.get(username=request.POST['name'])
+        except ObjectDoesNotExist:
+            pass
+
+        try:
+            m = Instructor.objects.get(username=request.POST['name'])
+        except ObjectDoesNotExist:
+            pass
+
+        isValid = (m.password == request.POST['password'])
         if isValid:
-            request.session["user"] = m.username
-            request.session["pswd"] = m.password
-            return redirect("/home/")
+            if isinstance(m, TA):
+                return redirect("/tahome/")
+            elif isinstance(m, Instructor):
+                return redirect("/instructorhome/")
+            else:
+                return redirect("/adminhome/")
         else:
             return render(request, "login.html", {})
 
 
-class Home(View):
+
+class AdminHome(View):
     def get(self, request):
-        user = MyUser.objects.filter(username=request.session["user"], password=request.session["pswd"])
-        if isinstance(user, TA):
-            return render(request, "TAHome.html", {})
-        elif isinstance(user, Instructor):
-            return render(request, "InstructorHome.html", {})
-        else:
-            return render(request, "AdminHome.html", {})
+        pass
+
+
+class TAHome(View):
+    def get(self, request):
+        pass
+
+
+
+class InstructorHome(View):
+    def get(self, request):
+        pass
+
+
+
+
 
