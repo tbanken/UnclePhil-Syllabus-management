@@ -21,7 +21,9 @@ from syllabus.views import *
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', Login.as_view(), name='login'),
-    path('home/', Home.as_view(), name='home')
+    path('adminhome/', AdminHome.as_view(), name='ahome'),
+    path('tahome/', TAHome.as_view(), name='thome'),
+    path('instructorhome/', InstructorHome.as_view(), name='ihome')
 ]
 
 admin.site.site_header = "Uniform Syllabus Admin"

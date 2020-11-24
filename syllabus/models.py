@@ -10,7 +10,6 @@ class MyUser(models.Model):
     password = models.CharField(max_length=20)
     email = models.CharField(max_length=20)
 
-
     def __str__(self):
         return self.username
 
@@ -27,6 +26,7 @@ class TA(MyUser):
     office = models.CharField(max_length=20)
     phone = models.CharField(max_length=20)
     officeHours = models.CharField(max_length=20)
+
     class Meta:
         verbose_name = "TA"
         verbose_name_plural = "TAs"
@@ -38,10 +38,10 @@ class Instructor(MyUser):
     office = models.CharField(max_length=20)
     phone = models.CharField(max_length=20)
     officeHours = models.CharField(max_length=20)
+
     class Meta:
         verbose_name = "Instructor"
         verbose_name_plural = "Instructors"
-
 
 # class Syllabus(models.Model):
 #     pass
