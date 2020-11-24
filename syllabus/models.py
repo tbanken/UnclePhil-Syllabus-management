@@ -1,22 +1,43 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 
 # Create your models here.
 
 
-class User(AbstractUser):
-    #user,psword,firstlastname,course foreignkey,section foreignkey(?)
+class MyUser(models.Model):
+    username = models.CharField(max_length=20)
+    password = models.CharField(max_length=20)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    office = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20)
+    email = models.CharField(max_length=20)
+    officeHours = models.CharField(max_length=20)
+
+
+class TA(MyUser):
     pass
 
 
-
-class TA(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    username = models.CharField(max_length=20)
-    # course foreignkey??
+class Instructor(MyUser):
+    pass
 
 
-class Instructor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    username = models.CharField(max_length=20)
+# class Syllabus(models.Model):
+#     pass
+#
+#
+# class Course(models.Model):
+#     name = models.CharField(max_length=20)
+#     number = models.IntegerField()
+#     # not sure on the instructor and TA
+#     instructors = models.ForeignKey(Instructor)
+#     tas = models.ForeignKey(TA)
+#     syllabus = models.ForeignKey(Syllabus)
+#
+#
+# class Section(models.Model):
+#     TypeOf = models.CharField(max_length=20)
+#     number = models.IntegerField()
+#     course = models.ForeignKey(Course)
