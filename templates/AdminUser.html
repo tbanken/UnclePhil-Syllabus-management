@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin User Page</title>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <th>Current Users</th>
+            <th>Role</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        {% for i in instructors %}
+        <tr>
+            <td>{{ i.username }}</td>
+            <td>Instructor</td>
+            <td>
+                <form action="/edituser/">
+                    {% csrf_token %}
+
+                    <input type="submit" value="Edit" />
+                </form>
+            </td>
+            <td>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <!- find a way to get the value of i.username to the post method of AdminUser so user can be deleted ->
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+
+    {% for t in tas %}
+        <tr>
+            <td>{{ i.username }}</td>
+            <td>TA</td>
+            <td>
+                <form action="/edituser/">
+                    {% csrf_token %}
+                    <input type="submit" value="Edit" />
+                </form>
+            </td>
+            <td>
+                <form action="/user/">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+<form action="/adminhome/">
+    {% csrf_token %}
+    <input type="submit" value="Home"/>
+</form>
+</body>
+</html>

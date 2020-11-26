@@ -5,6 +5,16 @@
     <title>Admin Home</title>
 </head>
 <body>
-<h2>Welcome Admin!</h2>
+<h2>Hello Admin {{ username }}!</h2>
+
+<form action="/user/">
+    <input type="submit" value="Users" />
+</form>
+
+<form action="/admin/">
+    <input type="submit" value="Courses" />
+</form>
+
+
 </body>
 </html>
