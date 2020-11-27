@@ -1,5 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import View
 from syllabus.models import *
 
@@ -53,29 +54,49 @@ class AdminHome(View):
         return render(request, "AdminHome.html", {"username": user})
 
 
-class AdminUser(View):
+class AdminViewUsers(View):
     def get(self, request):
         user = request.session["user"]
         tas = list(TA.objects.all())
         instructors = list(Instructor.objects.all())
-        return render(request, "AdminUser.html", {"username": user, "instructors": instructors, "tas": tas,
-                                                  "request": request.session})
+        return render(request, "AdminViewUsers.html", {"username": user, "instructors": instructors, "tas": tas})
+
+
+class CreateUser(View):
+    def get(self, request):
+        return render(request, "CreateUser.html", {})
 
     def post(self, request):
-        # toDelete = request.session["toModify"]
-        # print(toDelete)
-        # #toDelete.delete()
-        # user = request.session["user"]
-        # tas = list(TA.objects.all())
-        # instructors = list(Instructor.objects.all())
-        # return render(request, "AdminUser.html", {"username": user, "instructors": instructors, "tas": tas})
-        pass
+        uType = request.POST['uType']
+
+        if uType.__eq__('ta'):
+            TA.objects.create(username=request.POST['name'], password=request.POST['password'],
+                              email=request.POST['email'], first_name=request.POST['first_name'],
+                              last_name=request.POST['last_name'], office=request.POST['office'],
+                              phone=request.POST['phone'], officeHours=request.POST['office_hours'])
+        else:
+            Instructor.objects.create(username=request.POST['name'], password=request.POST['password'],
+                                      email=request.POST['email'], first_name=request.POST['first_name'],
+                                      last_name=request.POST['last_name'], office=request.POST['office'],
+                                      phone=request.POST['phone'], officeHours=request.POST['office_hours'])
+        return render(request, "CreateUser.html", {})
 
 
 class EditUser(View):
-    # get username from session then change fields based on HTML input
-    def get(self):
+    def get(self, request, username):
+        request.session['user'] = username
+        return render(request, "EditUser.html", {})
+
+    def post(self, request):
+        # set user data from EditUser.html
+        # render EditUser.html again
         pass
+
+
+class DeleteUser(View):
+    def post(self, request, username):
+        MyUser.objects.get(username=username).delete()
+        return redirect("/user/")
 
 
 class AdminCourse(View):

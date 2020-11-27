@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+</head>
+<body>
+<form action="/createuser/" method="post">
+    {% csrf_token %}
+<table>
+        <tr><td>Type: </td><td>
+
+<select name="uType" id="uType">
+  <option value="ta">TA</option>
+  <option value="instructor">Instructor</option>
+</select></td></tr>
+        <tr><td>Username: </td><td><input type="text" name="name"></td></tr>
+        <tr><td>Password: </td><td><input type="text" name="password"></td></tr>
+        <tr><td>Email: </td><td><input type="text" name="email"></td></tr>
+        <tr><td>First Name: </td><td><input type="text" name="first_name"></td></tr>
+        <tr><td>Last Name: </td><td><input type="text" name="last_name"></td></tr>
+        <tr><td>Office: </td><td><input type="text" name="office"></td></tr>
+        <tr><td>Phone: </td><td><input type="text" name="phone"></td></tr>
+        <tr><td>Office Hours: </td><td><input type="text" name="office_hours"></td></tr>
+    </table>
+    <input type="submit">
+</form>
+
+<form action="/user/">
+        <input type="submit" value="Users"/>
+    </form>
+</body>
+</html>

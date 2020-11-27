@@ -24,8 +24,10 @@ urlpatterns = [
     path('adminhome/', AdminHome.as_view(), name='ahome'),
     path('tahome/', TAHome.as_view(), name='thome'),
     path('instructorhome/', InstructorHome.as_view(), name='ihome'),
-    path('user/', AdminUser.as_view()),
-    path('edituser/', EditUser.as_view()),
+    path('user/', AdminViewUsers.as_view()),
+    path('edituser<str:username>/', EditUser.as_view()),
+    path('deleteuser<str:username>/', DeleteUser.as_view()),
+    path('createuser/', CreateUser.as_view()),
 ]
 
 admin.site.site_header = "Uniform Syllabus Admin"

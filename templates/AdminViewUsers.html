@@ -8,7 +8,7 @@
 
     <table>
         <tr>
-            <th>Current Users</th>
+            <th>Instructors</th>
             <th>Role</th>
             <th></th>
             <th></th>
@@ -19,16 +19,13 @@
             <td>{{ i.username }}</td>
             <td>Instructor</td>
             <td>
-                <form action="/edituser/">
-                    {% csrf_token %}
-
+                <form action="/edituser{{ i.username}}/">
                     <input type="submit" value="Edit" />
                 </form>
             </td>
             <td>
-                <form action="" method="post">
+                <form action="/deleteuser{{ i.username}}/" method="post">
                     {% csrf_token %}
-                    <!- find a way to get the value of i.username to the post method of AdminUser so user can be deleted ->
                     <input type="submit" value="Delete" />
                 </form>
             </td>
@@ -37,16 +34,15 @@
 
     {% for t in tas %}
         <tr>
-            <td>{{ i.username }}</td>
+            <td>{{ t.username }}</td>
             <td>TA</td>
             <td>
-                <form action="/edituser/">
-                    {% csrf_token %}
+                <form action="/edituser{{ t.username}}/">
                     <input type="submit" value="Edit" />
                 </form>
             </td>
             <td>
-                <form action="/user/">
+                <form action="/deleteuser{{ t.username}}/" method="post">
                     {% csrf_token %}
                     <input type="submit" value="Delete" />
                 </form>
@@ -55,9 +51,13 @@
     {% endfor %}
     </table>
 
-<form action="/adminhome/">
-    {% csrf_token %}
-    <input type="submit" value="Home"/>
-</form>
+
+    <form action="/createuser/">
+    <input type="submit" value="Create User"/>
+    </form>
+
+    <form action="/adminhome/">
+        <input type="submit" value="Home"/>
+    </form>
 </body>
 </html>
