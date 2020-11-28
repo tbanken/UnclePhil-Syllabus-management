@@ -5,9 +5,6 @@ from django.views import View
 from syllabus.models import *
 
 
-# Create your views here.
-
-
 class Login(View):
 
     def get(self, request):
@@ -15,6 +12,7 @@ class Login(View):
 
     def post(self, request):
         isValid = False
+        m = None
         try:
             m = Admin.objects.get(username=request.POST['name'])
         except ObjectDoesNotExist:
@@ -30,7 +28,10 @@ class Login(View):
         except ObjectDoesNotExist:
             pass
 
-        isValid = (m.password == request.POST['password'])
+        if m is None:
+            isValid = False
+        else:
+            isValid = (m.password == request.POST['password'])
 
         if isValid:
             request.session["user"] = m.username
@@ -67,9 +68,9 @@ class CreateUser(View):
         return render(request, "CreateUser.html", {})
 
     def post(self, request):
-        uType = request.POST['uType']
+        utype = request.POST['utype']
 
-        if uType.__eq__('ta'):
+        if utype == 'ta':
             TA.objects.create(username=request.POST['name'], password=request.POST['password'],
                               email=request.POST['email'], first_name=request.POST['first_name'],
                               last_name=request.POST['last_name'], office=request.POST['office'],
@@ -83,14 +84,26 @@ class CreateUser(View):
 
 
 class EditUser(View):
-    def get(self, request, username):
-        request.session['user'] = username
-        return render(request, "EditUser.html", {})
+    def get(self, request, username, utype):
+        return render(request, "EditUser.html", {"username": username, "utype": utype})
 
-    def post(self, request):
-        # set user data from EditUser.html
-        # render EditUser.html again
-        pass
+    def post(self, request, username, utype):
+        if utype == 'ta':
+            user = TA.objects.get(username=username)
+        else:
+            user = Instructor.objects.get(username=username)
+        #TODO display the user information next to the text input
+        user.username = request.POST['name']
+        user.password = request.POST['password']
+        user.email = request.POST['email']
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.office = request.POST['office']
+        user.phone = request.POST['phone']
+        user.officeHours = request.POST['office_hours']
+        user.save()
+        # TODO: check to see if fields are blank, if so don't update those fields
+        return render(request, "EditUser.html", {})
 
 
 class DeleteUser(View):
@@ -105,7 +118,29 @@ class AdminCourse(View):
 
 class TAHome(View):
     def get(self, request):
-        pass
+        username = request.session["user"]
+        ta = TA.objects.get(username=username)
+        print(ta.email)
+        return render(request, "TAHome.html", {"ta": ta})
+
+
+
+class TAEdit(View):
+    def get(self, request, username):
+        ta = TA.objects.get(username=username)
+        return render(request, "TAEdit.html", {"ta": ta})
+
+    def post(self, request, username):
+        ta = TA.objects.get(username=username)
+        ta.email = request.POST['email']
+        ta.first_name = request.POST['first_name']
+        ta.last_name = request.POST['last_name']
+        ta.office = request.POST['office']
+        ta.phone = request.POST['phone']
+        ta.officeHours = request.POST['office_hours']
+        ta.save()
+        return redirect("/tahome/")
+
 
 
 class InstructorHome(View):

@@ -23,9 +23,10 @@ urlpatterns = [
     path('', Login.as_view(), name='login'),
     path('adminhome/', AdminHome.as_view(), name='ahome'),
     path('tahome/', TAHome.as_view(), name='thome'),
+    path('taedit<str:username>/', TAEdit.as_view()),
     path('instructorhome/', InstructorHome.as_view(), name='ihome'),
     path('user/', AdminViewUsers.as_view()),
-    path('edituser<str:username>/', EditUser.as_view()),
+    path('edituser<str:username>-<str:utype>/', EditUser.as_view()),
     path('deleteuser<str:username>/', DeleteUser.as_view()),
     path('createuser/', CreateUser.as_view()),
 ]

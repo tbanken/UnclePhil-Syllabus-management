@@ -19,12 +19,12 @@
             <td>{{ i.username }}</td>
             <td>Instructor</td>
             <td>
-                <form action="/edituser{{ i.username}}/">
+                <form action="/edituser{{ i.username }}-instructor/">
                     <input type="submit" value="Edit" />
                 </form>
             </td>
             <td>
-                <form action="/deleteuser{{ i.username}}/" method="post">
+                <form action="/deleteuser{{ i.username }}/" method="post">
                     {% csrf_token %}
                     <input type="submit" value="Delete" />
                 </form>
@@ -37,12 +37,12 @@
             <td>{{ t.username }}</td>
             <td>TA</td>
             <td>
-                <form action="/edituser{{ t.username}}/">
+                <form action="/edituser{{ t.username }}-ta/">
                     <input type="submit" value="Edit" />
                 </form>
             </td>
             <td>
-                <form action="/deleteuser{{ t.username}}/" method="post">
+                <form action="/deleteuser{{ t.username }}/" method="post">
                     {% csrf_token %}
                     <input type="submit" value="Delete" />
                 </form>
