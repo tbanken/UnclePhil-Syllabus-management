@@ -5,7 +5,35 @@
     <title>Instructor Home</title>
 </head>
 <body>
-<h2>Hello Instructor {{ username }}!</h2>
+<h2>Hello Instructor {{ instructor.username }}!</h2>
+
+<table>
+        <tr>
+            <th>Name</th>
+            <th>Office</th>
+            <th>Office Hours</th>
+            <th>Phone Number</th>
+            <th>Email address</th>
+        </tr>
+        <tr>
+            <td>{{ instructor.first_name }} {{ instructor.last_name }}</td>
+            <td>{{ instructor.office }}</td>
+            <td>{{ instructor.officeHours }}</td>
+            <td>{{ instructor.phone }}</td>
+            <td>{{ instructor.email }}</td>
+        </tr>
+    </table>
+
+
+
+<form action="/instructoredit{{ instructor.username }}/">
+    <input type="submit" value="Edit information" />
+</form>
+
+<form action="/admin/">
+    <input type="submit" value="Courses" />
+</form>
+
 
 </body>
 </html>

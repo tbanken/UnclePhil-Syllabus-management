@@ -19,12 +19,13 @@ from django.urls import path
 from syllabus.views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name='admin'),
-    path('', Login.as_view(), name='login'),
-    path('adminhome/', AdminHome.as_view(), name='ahome'),
-    path('tahome/', TAHome.as_view(), name='thome'),
+    path('admin/', admin.site.urls),
+    path('', Login.as_view()),
+    path('tahome/', TAHome.as_view()),
     path('taedit<str:username>/', TAEdit.as_view()),
-    path('instructorhome/', InstructorHome.as_view(), name='ihome'),
+    path('instructorhome/', InstructorHome.as_view()),
+    path('instructoredit<str:username>/', InstructorEditInfo.as_view()),
+    path('adminhome/', AdminHome.as_view()),
     path('user/', AdminViewUsers.as_view()),
     path('edituser<str:username>-<str:utype>/', EditUser.as_view()),
     path('deleteuser<str:username>/', DeleteUser.as_view()),

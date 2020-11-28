@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TA Edit</title>
+    <title>Instructor Edit</title>
 </head>
 <body>
 
@@ -15,16 +15,16 @@
             <th>Email address</th>
         </tr>
         <tr>
-            <td>{{ ta.first_name }} {{ ta.last_name }}</td>
-            <td>{{ ta.office }}</td>
-            <td>{{ ta.officeHours }}</td>
-            <td>{{ ta.phone }}</td>
-            <td>{{ ta.email }}</td>
+            <td>{{ instructor.first_name }} {{ instructor.last_name }}</td>
+            <td>{{ instructor.office }}</td>
+            <td>{{ instructor.officeHours }}</td>
+            <td>{{ instructor.phone }}</td>
+            <td>{{ instructor.email }}</td>
         </tr>
     </table>
 
 
-<form action="/taedit{{ ta.username }}/" method="post">
+<form action="/instructoredit{{ instructor.username }}/" method="post">
     {% csrf_token %}
 <table>
         </td></tr>
@@ -38,7 +38,7 @@
     <input type="submit">
 </form>
 
-<form action="/tahome/">
+<form action="/instructorhome/">
     <input type="submit" value="Back" />
 </form>
 

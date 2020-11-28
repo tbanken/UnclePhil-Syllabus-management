@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit</title>
+    <title>Edit User</title>
 </head>
 <body>
-<h2>Edit User!</h2>
+<h2>Edit User {{ username }}</h2>
 
 <form action="/edituser{{ username }}-{{ utype }}/" method="post">
     {% csrf_token %}
