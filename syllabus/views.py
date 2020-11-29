@@ -112,7 +112,8 @@ class EditUser(View):
                   request.POST['office'], request.POST['phone'], request.POST['office_hours'])
         return render(request, "EditUser.html", {})
 
-#assumes that usernames are unique across all users
+
+# assumes that usernames are unique across all users
 class DeleteUser(View):
     def post(self, request, username):
         MyUser.objects.get(username=username).delete()
@@ -131,9 +132,9 @@ class CreateCourse(View):
         return render(request, "CreateCourse.html", {})
 
     def post(self, request):
-        # TODO create with sections and or tas and instructors
+        # TODO create with tas and instructors
         Course.objects.create(name=request.POST['name'], number=request.POST['number'])
-        return render(request, "CreateCourse.html", {})
+        return render(request, "CreateCourse.html", {"name": request.POST['name']})
 
 
 class EditCourse(View):
@@ -152,10 +153,49 @@ class EditCourse(View):
         return render(request, "EditCourse.html", {"name": name})
 
 
+# assumes that names are unique across all courses
 class DeleteCourse(View):
     def post(self, request, name):
         Course.objects.get(name=name).delete()
         return redirect("/course/")
+
+
+class ViewSections(View):
+    def get(self, request, name):
+        course = Course.objects.get(name=name)
+        sections = list(Section.objects.filter(course=course))
+        return render(request, "ViewSections.html", {"name": name, "sections": sections})
+
+
+class CreateSection(View):
+    def get(self, request, name):
+        return render(request, "CreateSection.html", {"name": name})
+
+    def post(self, request, name):
+        course = Course.objects.get(name=name)
+        Section.objects.create(number=request.POST['number'], type_of=request.POST['stype'], course=course)
+        return redirect("/viewsections" + name + "/")
+
+
+class EditSection(View):
+    def get(self, request, number, name):
+        return render(request, "EditSection.html", {"number": number, "name": name})
+
+    def post(self, request, number, name):
+        # TODO display the section information next to the text input
+        section = Section.objects.get(number=number)
+        if request.POST['stype'] != '':
+            section.name = request.POST['stype']
+        if request.POST['number'] != '':
+            section.number = request.POST['number']
+        section.save()
+        return render(request, "EditSection.html", {"number": number, "name": name})
+
+
+class DeleteSection(View):
+    def post(self, request, number, name):
+        Section.objects.get(number=number).delete()
+        return redirect("/viewsections" + name + "/")
 
 
 class TAHome(View):

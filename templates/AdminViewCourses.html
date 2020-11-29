@@ -23,7 +23,9 @@
             <td>{{ c.number }}</td>
             <td><!--instructors go here--></td>
             <td><!--tas go here--></td>
-            <td><!--sections go here--></td>
+            <td><form action="/viewsections{{ c.name }}/">
+                    <input type="submit" value="View" />
+                </form></td>
             <td>
                 <form action="/editcourse{{ c.name }}/">
                     <input type="submit" value="Edit" />
