@@ -30,6 +30,10 @@ urlpatterns = [
     path('edituser<str:username>-<str:utype>/', EditUser.as_view()),
     path('deleteuser<str:username>/', DeleteUser.as_view()),
     path('createuser/', CreateUser.as_view()),
+    path('course/', AdminViewCourses.as_view()),
+    path('createcourse/', CreateCourse.as_view()),
+    path('editcourse<str:name>/', EditCourse.as_view()),
+    path('deletecourse<str:name>/', DeleteCourse.as_view()),
 ]
 
 admin.site.site_header = "Uniform Syllabus Admin"

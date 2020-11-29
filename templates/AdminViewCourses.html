@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Course Page</title>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <th>Course Name</th>
+            <th>Course Number</th>
+            <th>Instructor</th>
+            <th>TAs</th>
+            <th>Sections</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        {% for c in courses %}
+        <tr>
+            <td>{{ c.name }}</td>
+            <td>{{ c.number }}</td>
+            <td><!--instructors go here--></td>
+            <td><!--tas go here--></td>
+            <td><!--sections go here--></td>
+            <td>
+                <form action="/editcourse{{ c.name }}/">
+                    <input type="submit" value="Edit" />
+                </form>
+            </td>
+            <td>
+                <form action="/deletecourse{{ c.name }}/" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <form action="/createcourse/">
+    <input type="submit" value="Create Course"/>
+    </form>
+
+    <form action="/adminhome/">
+        <input type="submit" value="Home"/>
+    </form>
+</body>
+</html>

@@ -5,17 +5,23 @@ from .models import *
 
 
 def edit_info(user, email, first_name, last_name, office, phone, office_hours):
-    user.email = email
-    user.first_name = first_name
-    user.last_name = last_name
-    user.office = office
-    user.phone = phone
-    user.officeHours = office_hours
+    if email != '':
+        user.email = email
+    if first_name != '':
+        user.first_name = first_name
+    if last_name != '':
+        user.last_name = last_name
+    if office != '':
+        user.office = office
+    if phone != '':
+        user.phone = phone
+    if office_hours != '':
+        user.office_hours = office_hours
     user.save()
 
 
 class Login(View):
-
+    # TODO add session expiry??
     def get(self, request):
         return render(request, "Login.html", {})
 
@@ -79,12 +85,12 @@ class CreateUser(View):
             TA.objects.create(username=request.POST['name'], password=request.POST['password'],
                               email=request.POST['email'], first_name=request.POST['first_name'],
                               last_name=request.POST['last_name'], office=request.POST['office'],
-                              phone=request.POST['phone'], officeHours=request.POST['office_hours'])
+                              phone=request.POST['phone'], office_hours=request.POST['office_hours'])
         else:
             Instructor.objects.create(username=request.POST['name'], password=request.POST['password'],
                                       email=request.POST['email'], first_name=request.POST['first_name'],
                                       last_name=request.POST['last_name'], office=request.POST['office'],
-                                      phone=request.POST['phone'], officeHours=request.POST['office_hours'])
+                                      phone=request.POST['phone'], office_hours=request.POST['office_hours'])
         return render(request, "CreateUser.html", {})
 
 
@@ -93,16 +99,17 @@ class EditUser(View):
         return render(request, "EditUser.html", {"username": username, "utype": utype})
 
     def post(self, request, username, utype):
+        # TODO display the user information next to the text input
         if utype == 'ta':
             user = TA.objects.get(username=username)
         else:
             user = Instructor.objects.get(username=username)
-        # TODO display the user information next to the text input
-        user.username = request.POST['name']
-        user.password = request.POST['password']
+            if request.POST['name'] != '':
+                user.username = request.POST['name']
+            if request.POST['password'] != '':
+                user.password = request.POST['password']
         edit_info(user, request.POST['email'], request.POST['first_name'], request.POST['last_name'],
                   request.POST['office'], request.POST['phone'], request.POST['office_hours'])
-        # TODO: check to see if fields are blank, if so don't update those fields
         return render(request, "EditUser.html", {})
 
 #assumes that usernames are unique across all users
@@ -112,8 +119,43 @@ class DeleteUser(View):
         return redirect("/user/")
 
 
-class AdminCourses(View):
-    pass
+class AdminViewCourses(View):
+    def get(self, request):
+        user = request.session["user"]
+        courses = list(Course.objects.all())
+        return render(request, "AdminViewCourses.html", {"username": user, "courses": courses})
+
+
+class CreateCourse(View):
+    def get(self, request):
+        return render(request, "CreateCourse.html", {})
+
+    def post(self, request):
+        # TODO create with sections and or tas and instructors
+        Course.objects.create(name=request.POST['name'], number=request.POST['number'])
+        return render(request, "CreateCourse.html", {})
+
+
+class EditCourse(View):
+    def get(self, request, name):
+        return render(request, "EditCourse.html", {"name": name})
+
+    def post(self, request, name):
+        # TODO display the course information next to the text input
+        # TODO edit with tas and instructors
+        course = Course.objects.get(name=name)
+        if request.POST['name'] != '':
+            course.name = request.POST['name']
+        if request.POST['number'] != '':
+            course.number = request.POST['number']
+        course.save()
+        return render(request, "EditCourse.html", {"name": name})
+
+
+class DeleteCourse(View):
+    def post(self, request, name):
+        Course.objects.get(name=name).delete()
+        return redirect("/course/")
 
 
 class TAHome(View):
