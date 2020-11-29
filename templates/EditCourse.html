@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Course</title>
+</head>
+<body>
+<h2>Edit {{ name }}</h2>
+
+<form action="/editcourse{{ name }}/" method="post">
+    {% csrf_token %}
+<table>
+        </td></tr>
+        <tr><td>Course Name: </td><td><input type="text" name="name"></td></tr>
+        <tr><td>Course Number: </td><td><input type="text" name="number"></td></tr>
+    </table>
+    <input type="submit">
+</form>
+
+<!-- section creation-->
+<form action="/user/">
+        <input type="submit" value="Edit sections"/>
+    </form>
+
+<form action="/course/">
+        <input type="submit" value="Back"/>
+    </form>
+</body>
+</html>

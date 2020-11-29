@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Instructor Edit</title>
+</head>
+<body>
+
+<table>
+        <tr>
+            <th>Name</th>
+            <th>Office</th>
+            <th>Office Hours</th>
+            <th>Phone Number</th>
+            <th>Email address</th>
+        </tr>
+        <tr>
+            <td>{{ instructor.first_name }} {{ instructor.last_name }}</td>
+            <td>{{ instructor.office }}</td>
+            <td>{{ instructor.office_hours }}</td>
+            <td>{{ instructor.phone }}</td>
+            <td>{{ instructor.email }}</td>
+        </tr>
+    </table>
+
+
+<form action="/instructoredit{{ instructor.username }}/" method="post">
+    {% csrf_token %}
+<table>
+        </td></tr>
+        <tr><td>Email: </td><td><input type="text" name="email"></td></tr>
+        <tr><td>First Name: </td><td><input type="text" name="first_name"></td></tr>
+        <tr><td>Last Name: </td><td><input type="text" name="last_name"></td></tr>
+        <tr><td>Office: </td><td><input type="text" name="office"></td></tr>
+        <tr><td>Phone: </td><td><input type="text" name="phone"></td></tr>
+        <tr><td>Office Hours: </td><td><input type="text" name="office_hours"></td></tr>
+    </table>
+    <input type="submit">
+</form>
+
+<form action="/instructorhome/">
+    <input type="submit" value="Back" />
+</form>
+
+
+</body>
+</html>
