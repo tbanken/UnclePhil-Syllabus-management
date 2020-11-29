@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sections</title>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <th>Section Type</th>
+            <th>Section Number</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        {% for s in sections %}
+        <tr>
+            <td>{{ s.type_of }}</td>
+            <td>{{ s.number }}</td>
+            <td><!--instructors go here--></td>
+            <td><!--tas go here--></td>
+            <td>
+                <form action="/editsection{{ s.number }}-{{ name }}/">
+                    <input type="submit" value="Edit" />
+                </form>
+            </td>
+            <td>
+                <form action="/deletesection{{ s.number }}-{{ name }}/" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <form action="/createsection{{ name }}/">
+    <input type="submit" value="Create Section"/>
+    </form>
+
+    <form action="/course/">
+        <input type="submit" value="Back"/>
+    </form>
+</body>
+</html>

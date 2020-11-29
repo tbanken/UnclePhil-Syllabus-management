@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         ),
         migrations.RenameField(
             model_name='instructor',
-            old_name='officeHours',
+            old_name='office_hours',
             new_name='office_hours',
         ),
     ]
