@@ -62,16 +62,14 @@ class Login(View):
 
 class AdminHome(View):
     def get(self, request):
-        user = request.session["user"]
-        return render(request, "AdminHome.html", {"username": user})
+        return render(request, "AdminHome.html", {"username": request.session["user"]})
 
 
 class AdminViewUsers(View):
     def get(self, request):
-        user = request.session["user"]
         tas = list(TA.objects.all())
         instructors = list(Instructor.objects.all())
-        return render(request, "AdminViewUsers.html", {"username": user, "instructors": instructors, "tas": tas})
+        return render(request, "AdminViewUsers.html", {"username": request.session["user"], "instructors": instructors, "tas": tas})
 
 
 class CreateUser(View):
@@ -80,6 +78,9 @@ class CreateUser(View):
 
     def post(self, request):
         utype = request.POST['utype']
+
+        if request.POST['name'] == '' or request.POST['password'] == '' or request.POST['email'] == '':
+            return redirect("/createuser/")
 
         if utype == 'ta':
             TA.objects.create(username=request.POST['name'], password=request.POST['password'],
