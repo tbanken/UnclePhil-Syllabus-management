@@ -5,6 +5,35 @@
     <title>TA Home</title>
 </head>
 <body>
-<h2>Welcome TA!</h2>
+<h2>Hello TA {{ ta.username }}!</h2>
+
+<table>
+        <tr>
+            <th>Name</th>
+            <th>Office</th>
+            <th>Office Hours</th>
+            <th>Phone Number</th>
+            <th>Email address</th>
+        </tr>
+        <tr>
+            <td>{{ ta.first_name }} {{ ta.last_name }}</td>
+            <td>{{ ta.office }}</td>
+            <td>{{ ta.office_hours }}</td>
+            <td>{{ ta.phone }}</td>
+            <td>{{ ta.email }}</td>
+        </tr>
+    </table>
+
+
+
+<form action="/taedit{{ ta.username }}/">
+    <input type="submit" value="Edit information" />
+</form>
+
+<form action="/admin/">
+    <input type="submit" value="Courses" />
+</form>
+
+
 </body>
 </html>

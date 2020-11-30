@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin User Page</title>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <th>Instructors</th>
+            <th>Role</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        {% for i in instructors %}
+        <tr>
+            <td>{{ i.username }}</td>
+            <td>Instructor</td>
+            <td>
+                <form action="/edituser{{ i.username }}-instructor/">
+                    <input type="submit" value="Edit" />
+                </form>
+            </td>
+            <td>
+                <form action="/deleteuser{{ i.username }}/" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+
+    {% for t in tas %}
+        <tr>
+            <td>{{ t.username }}</td>
+            <td>TA</td>
+            <td>
+                <form action="/edituser{{ t.username }}-ta/">
+                    <input type="submit" value="Edit" />
+                </form>
+            </td>
+            <td>
+                <form action="/deleteuser{{ t.username }}/" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+
+    <form action="/createuser/">
+    <input type="submit" value="Create User"/>
+    </form>
+
+    <form action="/adminhome/">
+        <input type="submit" value="Home"/>
+    </form>
+</body>
+</html>

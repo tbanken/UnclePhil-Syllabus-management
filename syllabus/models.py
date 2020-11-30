@@ -25,7 +25,7 @@ class TA(MyUser):
     last_name = models.CharField(max_length=20)
     office = models.CharField(max_length=20)
     phone = models.CharField(max_length=20)
-    officeHours = models.CharField(max_length=20)
+    office_hours = models.CharField(max_length=20)
 
     class Meta:
         verbose_name = "TA"
@@ -37,26 +37,28 @@ class Instructor(MyUser):
     last_name = models.CharField(max_length=20)
     office = models.CharField(max_length=20)
     phone = models.CharField(max_length=20)
-    officeHours = models.CharField(max_length=20)
+    office_hours = models.CharField(max_length=20)
 
     class Meta:
         verbose_name = "Instructor"
         verbose_name_plural = "Instructors"
 
+
 # class Syllabus(models.Model):
 #     pass
 #
 #
-# class Course(models.Model):
-#     name = models.CharField(max_length=20)
-#     number = models.IntegerField()
-#     # not sure on the instructor and TA
-#     instructors = models.ForeignKey(Instructor)
-#     tas = models.ForeignKey(TA)
-#     syllabus = models.ForeignKey(Syllabus)
-#
-#
-# class Section(models.Model):
-#     TypeOf = models.CharField(max_length=20)
-#     number = models.IntegerField()
-#     course = models.ForeignKey(Course)
+class Course(models.Model):
+    name = models.CharField(max_length=20)
+    number = models.IntegerField()
+    # not sure on the instructor and TA
+    # instructors = models.ForeignKey(Instructor,on_delete=models.CASCADE)
+    # tas = models.ForeignKey(TA,on_delete=models.CASCADE)
+    # syllabus
+
+
+class Section(models.Model):
+    type_of = models.CharField(max_length=20)
+    number = models.IntegerField()
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    # ta?
