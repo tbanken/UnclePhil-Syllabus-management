@@ -3,18 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/AdminHomeStyle.css'%}" />
 </head>
 <body>
-<h2>Hello Admin {{ username }}!</h2>
+<div class="header">
+<h1>Hello Admin {{ username }}!</h1>
+</div>
+<ul>
+    <li>
+        <form action="/user/">
+            <input type="submit" value="Users" />
+        </form>
+    </li>
+    <li>
+        <form action="/course/">
+            <input type="submit" value="Courses" />
+        </form>
+    </li>
+</ul>
 
-<form action="/user/">
-    <input type="submit" value="Users" />
-</form>
-
-<form action="/course/">
-    <input type="submit" value="Courses" />
-</form>
-
+<div class="card">Some interesting fact.</div>
+<div class="card">Another interesting fact.</div>
 
 </body>
 </html>
