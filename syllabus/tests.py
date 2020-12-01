@@ -3,6 +3,82 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import *
 
 
+# Create your tests here.
+
+# class LoginTest(TestCase):
+#     def setUp(self):
+#         self.client = Client()
+#         self.admin = Admin.objects.create(username='admin', password='123', email='test@admin.com')
+#         self.instruct = Instructor.objects.create(username='instruct', password='456',
+#                                                   email='test@instruct.com', first_name='Test',
+#                                                   last_name='Instructor', office='TestOffice',
+#                                                   phone='1234567810', office_hours='test')
+#         self.ta = TA.objects.create(username='ta', password='789',
+#                                             email='test@ta.com', first_name='Test',
+#                                             last_name='TA', office='TestOfficeTA',
+#                                             phone='1098765432', office_hours='never')
+#
+#     def testFail(self):
+#         response = self.client.post('', {'name': 'admin', 'password': '456'})
+#         self.assertEqual('/', response.url)
+#
+#     def testAdminLogin(self):
+#         response = self.client.post('', {'name': 'admin', 'password': '123'})
+#         self.assertEqual('/adminhome/', response.url)
+#
+#     def testTALogin(self):
+#         response = self.client.post('', {'name': 'ta', 'password': '789'})
+#         self.assertEqual('/tahome/', response.url)
+#
+#     def testInstructLogin(self):
+#         response = self.client.post('', {'name': 'instruct', 'password': '456'})
+#         self.assertEqual('/instructorhome/', response.url)
+
+
+# class AdminTest(TestCase):
+#     def setUp(self):
+#         self.client = Client()
+#         self.ta = Instructor.objects.create(username='ta', password='789',
+#                                             email='test@ta.com', first_name='Test',
+#                                             last_name='TA', office='TestOfficeTA',
+#                                             phone='1098765432', office_hours='never')
+#
+#     def test_view_users(self):
+#         pass
+#
+#     def test_create_user(self):
+#         pass
+#
+#     def test_edit_user(self):
+#         pass
+#
+#     def test_delete(self):
+#         pass
+#
+#
+# class TATest(TestCase):
+#     def setUp(self):
+#         self.client = Client()
+#         self.ta = Instructor.objects.create(username='ta', password='789',
+#                                             email='test@ta.com', first_name='Test',
+#                                             last_name='TA', office='TestOfficeTA',
+#                                             phone='1098765432', office_hours='never')
+#
+#     def test_edit(self):
+#         pass
+#
+#
+# class InstructTest(TestCase):
+#     def setUp(self):
+#         self.client = Client()
+#         self.ta = Instructor.objects.create(username='ta', password='789',
+#                                             email='test@ta.com', first_name='Test',
+#                                             last_name='TA', office='TestOfficeTA',
+#                                             phone='1098765432', office_hours='never')
+#
+#     def test_edit(self):
+#         pass
+
 class TestLogin(TestCase):
     def setUp(self):
         self.client = Client()
