@@ -3,11 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Instructor Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/InstructorHomeStyle.css'%}" />
 </head>
 <body>
-<h2>Hello Instructor {{ instructor.username }}!</h2>
+<div class="header">
+    <h1>Hello Instructor {{ instructor.username }}!</h1>
+</div>
+<ul class="topnav">
+<form action="/instructoredit{{ instructor.username }}/">
+    <input type="submit" value="Edit information" />
+</form>
 
-<table>
+<form action="/admin/">
+    <input type="submit" value="Courses" />
+</form>
+</ul>
+<table id = "InstructorInfo">
         <tr>
             <th>Name</th>
             <th>Office</th>
@@ -23,16 +35,6 @@
             <td>{{ instructor.email }}</td>
         </tr>
     </table>
-
-
-
-<form action="/instructoredit{{ instructor.username }}/">
-    <input type="submit" value="Edit information" />
-</form>
-
-<form action="/admin/">
-    <input type="submit" value="Courses" />
-</form>
 
 
 </body>

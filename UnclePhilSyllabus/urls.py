@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from syllabus.views import *
 
@@ -39,7 +41,7 @@ urlpatterns = [
     path('editsection<str:number>-<str:name>/', EditSection.as_view()),
     path('deletesection<str:number>-<str:name>/', DeleteSection.as_view()),
 
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 admin.site.site_header = "Uniform Syllabus Admin"
 admin.site.site_title = "Uniform Syllabus Admin Portal"

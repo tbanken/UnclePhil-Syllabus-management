@@ -234,3 +234,4 @@ class InstructorEditInfo(View):
         edit_info(instructor, request.POST['email'], request.POST['first_name'], request.POST['last_name'],
                   request.POST['office'], request.POST['phone'], request.POST['office_hours'])
         return redirect("/instructorhome/")
+
