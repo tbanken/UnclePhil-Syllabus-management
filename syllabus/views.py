@@ -60,6 +60,14 @@ class Login(View):
             return render(request, "Login.html", {})
 
 
+class Logout(View):
+    def get(self, request):
+        request.session.flush()
+        return redirect("/")
+
+
+
+
 class AdminHome(View):
     def get(self, request):
         return render(request, "AdminHome.html", {"username": request.session["user"]})

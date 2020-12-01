@@ -21,6 +21,7 @@ from syllabus.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Login.as_view()),
+    path('logout/', Logout.as_view()),
     path('tahome/', TAHome.as_view()),
     path('taedit<str:username>/', TAEdit.as_view()),
     path('instructorhome/', InstructorHome.as_view()),
