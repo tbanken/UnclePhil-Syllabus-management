@@ -44,21 +44,18 @@ class Instructor(MyUser):
         verbose_name_plural = "Instructors"
 
 
-# class Syllabus(models.Model):
-#     pass
-#
-#
 class Course(models.Model):
     name = models.CharField(max_length=20)
-    number = models.IntegerField()
-    # not sure on the instructor and TA
-    # instructors = models.ForeignKey(Instructor,on_delete=models.CASCADE)
-    # tas = models.ForeignKey(TA,on_delete=models.CASCADE)
-    # syllabus
+    term = models.CharField(max_length=20)
+    dep_number = models.CharField(max_length=20)
+    instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING)
+    #TODO ta needs to be ManyToMany(need multiple TAs in one course)
+    ta = models.ForeignKey(TA, on_delete=models.DO_NOTHING)
 
 
 class Section(models.Model):
     type_of = models.CharField(max_length=20)
     number = models.IntegerField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    # ta?
+    ta = models.OneToOneField(TA, on_delete=models.DO_NOTHING)
+    instructor = models.OneToOneField(Instructor, on_delete=models.DO_NOTHING)
