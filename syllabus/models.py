@@ -26,6 +26,7 @@ class TA(MyUser):
     office = models.CharField(max_length=20)
     phone = models.CharField(max_length=20)
     office_hours = models.CharField(max_length=20)
+    course = models.ForeignKey('Course', on_delete=models.DO_NOTHING, null=True)
 
     class Meta:
         verbose_name = "TA"
@@ -49,13 +50,10 @@ class Course(models.Model):
     term = models.CharField(max_length=20)
     dep_number = models.CharField(max_length=20)
     instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING)
-    #TODO ta needs to be ManyToMany(need multiple TAs in one course)
-    ta = models.ForeignKey(TA, on_delete=models.DO_NOTHING)
 
 
 class Section(models.Model):
     type_of = models.CharField(max_length=20)
     number = models.IntegerField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    ta = models.OneToOneField(TA, on_delete=models.DO_NOTHING)
-    instructor = models.OneToOneField(Instructor, on_delete=models.DO_NOTHING)
+    user = models.OneToOneField(MyUser, on_delete=models.DO_NOTHING)

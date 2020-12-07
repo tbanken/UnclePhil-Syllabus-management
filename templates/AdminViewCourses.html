@@ -10,6 +10,7 @@
         <tr>
             <th>Name</th>
             <th>Number</th>
+            <th>Term</th>
             <th>Instructor</th>
             <th>TAs</th>
             <th>Sections</th>
@@ -21,8 +22,9 @@
         <tr>
             <td>{{ c.name }}</td>
             <td>{{ c.dep_number }}</td>
+            <td></td>
             <td>{{ c.instructor.username }}</td>
-            <td>{{ c.ta.username }}</td>
+            <td></td>
             <td><form action="/viewsections{{ c.name }}/">
                     <input type="submit" value="View" />
                 </form></td>

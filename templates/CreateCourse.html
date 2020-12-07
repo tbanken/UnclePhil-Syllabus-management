@@ -9,8 +9,9 @@
     {% csrf_token %}
 <table>
         <tr><td>Name: </td><td><input type="text" name="name"></td></tr>
-        <tr><td>Number: </td><td><input type="text" name="number"></td></tr>
-    <tr><td>Instructor: </td><td><select name="instruct" id="instruct">
+        <tr><td>Department and Number("DP-123"): </td><td><input type="text" name="number"></td></tr>
+        <tr><td>Term: </td><td><input type="text" name="term"></td></tr>
+        <tr><td>Instructor: </td><td><select name="instruct" id="instruct">
     {% for i in instructors %}
             <option value={{ i.username }}>{{ i.username }}</option>
     {% endfor %}
