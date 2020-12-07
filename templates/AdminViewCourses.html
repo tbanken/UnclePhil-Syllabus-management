@@ -8,8 +8,9 @@
 
     <table>
         <tr>
-            <th>Course Name</th>
-            <th>Course Number</th>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Term</th>
             <th>Instructor</th>
             <th>TAs</th>
             <th>Sections</th>
@@ -20,9 +21,10 @@
         {% for c in courses %}
         <tr>
             <td>{{ c.name }}</td>
-            <td>{{ c.number }}</td>
-            <td><!--instructors go here--></td>
-            <td><!--tas go here--></td>
+            <td>{{ c.dep_number }}</td>
+            <td></td>
+            <td>{{ c.instructor.username }}</td>
+            <td></td>
             <td><form action="/viewsections{{ c.name }}/">
                     <input type="submit" value="View" />
                 </form></td>

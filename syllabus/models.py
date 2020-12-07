@@ -26,6 +26,7 @@ class TA(MyUser):
     office = models.CharField(max_length=20)
     phone = models.CharField(max_length=20)
     office_hours = models.CharField(max_length=20)
+    course = models.ForeignKey('Course', on_delete=models.DO_NOTHING, null=True)
 
     class Meta:
         verbose_name = "TA"
@@ -44,21 +45,15 @@ class Instructor(MyUser):
         verbose_name_plural = "Instructors"
 
 
-# class Syllabus(models.Model):
-#     pass
-#
-#
 class Course(models.Model):
     name = models.CharField(max_length=20)
-    number = models.IntegerField()
-    # not sure on the instructor and TA
-    # instructors = models.ForeignKey(Instructor,on_delete=models.CASCADE)
-    # tas = models.ForeignKey(TA,on_delete=models.CASCADE)
-    # syllabus
+    term = models.CharField(max_length=20)
+    dep_number = models.CharField(max_length=20)
+    instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING)
 
 
 class Section(models.Model):
     type_of = models.CharField(max_length=20)
     number = models.IntegerField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    # ta?
+    user = models.OneToOneField(MyUser, on_delete=models.DO_NOTHING)

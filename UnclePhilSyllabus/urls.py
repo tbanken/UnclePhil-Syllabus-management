@@ -39,8 +39,9 @@ urlpatterns = [
     path('deletecourse<str:name>/', DeleteCourse.as_view()),
     path('viewsections<str:name>/', ViewSections.as_view()),
     path('createsection<str:name>/', CreateSection.as_view()),
-    path('editsection<str:number>-<str:name>/', EditSection.as_view()),
-    path('deletesection<str:number>-<str:name>/', DeleteSection.as_view()),
+    path('editsection<str:dep_number>-<str:name>/', EditSection.as_view()),
+    path('deletesection<str:dep_number>-<str:name>/', DeleteSection.as_view()),
+    #path('courseaddta<str:name>/', CourseAddTA.as_view()),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
