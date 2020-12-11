@@ -5,6 +5,20 @@
     <title>Create Section</title>
 </head>
 <body>
+
+<table>
+        <tr>
+            <th>Section</th>
+            <th>Instructor/TA</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>{{ section.type_of }}-{{ section.number }}</td>
+            <td>{{ section.user }}</td>
+        </tr>
+    </table>
+<br>
+
 <form action="/editsection{{ number }}-{{ name }}/" method="post">
     {% csrf_token %}
 <table>

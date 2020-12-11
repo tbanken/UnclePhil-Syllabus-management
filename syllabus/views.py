@@ -131,6 +131,7 @@ class AdminViewCourses(View):
     def get(self, request):
         user = request.session["user"]
         courses = list(Course.objects.all())
+        #TODO display TAs
         # tas = {}
         # for c in courses:
         #     tas[c] = frozenset((TA.objects.filter(course__in=Course.objects.filter(name=c.name))))
@@ -175,6 +176,12 @@ class EditCourse(View):
         return render(request, "EditCourse.html", {"name": name})
 
 
+# assumes that names are unique across all courses
+class DeleteCourse(View):
+    def post(self, request, name):
+        Course.objects.get(name=name).delete()
+        return redirect("/course/")
+
 class CourseAddTA(View):
     def get(self, request, name):
         course = Course.objects.get(name=name)
@@ -189,11 +196,7 @@ class CourseAddTA(View):
         return render(request, "CourseAddTA.html", {"course": course, "tas": tas})
 
 
-# assumes that names are unique across all courses
-class DeleteCourse(View):
-    def post(self, request, name):
-        Course.objects.get(name=name).delete()
-        return redirect("/course/")
+
 
 
 class ViewSections(View):
@@ -223,10 +226,11 @@ class EditSection(View):
     def get(self, request, number, name):
         course = Course.objects.get(name=name)
         users = list()
+        section = Section.objects.get(number=number, course=course)
         users.append(course.instructor)
         for t in TA.objects.filter(course__in=Course.objects.filter(name=course.name)):
             users.append(t)
-        return render(request, "EditSection.html", {"number": number, "name": name, "users": users})
+        return render(request, "EditSection.html", {"number": number, "name": name, "users": users, "section": section})
 
     def post(self, request, number, name):
         # TODO display the section information next to the text input
@@ -285,6 +289,17 @@ class InstructorEditInfo(View):
                   request.POST['office'], request.POST['phone'], request.POST['office_hours'])
         courses = list(Course.objects.filter(instructor=instructor))
         return render(request, "InstructorEdit.html", {"instructor": instructor, "courses": courses})
+
+
+class InstructorViewCourses(View):
+    def get(self, request):
+        username = request.session["user"]
+        instructor = Instructor.objects.get(username=username)
+        courses = Course.objects.filter(instructor=instructor)
+        return render(request, "InstructorViewCourses.html", {"instructor": instructor, "courses": courses})
+
+
+
 
 
 class Courses(View):

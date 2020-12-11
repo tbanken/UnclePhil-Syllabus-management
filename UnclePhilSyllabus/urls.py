@@ -42,7 +42,8 @@ urlpatterns = [
     path('editsection<str:number>-<str:name>/', EditSection.as_view()),
     path('deletesection<str:number>-<str:name>/', DeleteSection.as_view()),
     path('courseaddta<str:name>/', CourseAddTA.as_view()),
-    path('courses/', Courses.as_view())
+    path('courses/', Courses.as_view()),
+    path('instructorviewcourses/', InstructorViewCourses.as_view()),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
