@@ -3,22 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Uniform Syllabus </title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static '/LoginStyle.css'%}" />
 </head>
 <body>
-<h1 class="header">Welcome to the UWM Syllabus Database!</h1>
 <form action="/" method="post">
     {% csrf_token %}
-    <table id="card">
+    <table>
         <tr><td>Username: </td><td><input type="text" name="name"></td></tr>
         <tr><td>Password: </td><td><input type="password" name="password"></td></tr>
-        <tr><td><input id="sub" type="submit"></td></tr>
     </table>
-<br/>
-    <div id="card"><a href="/courses/">(will implement later) Click to view available courses!</a></div>
+    <input type="submit">
 </form>
 
-
+<form action="/courses/">
+        <input type="submit" value="Courses"/>
+    </form>
 </body>
 </html>
