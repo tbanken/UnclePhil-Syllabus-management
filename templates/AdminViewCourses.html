@@ -12,6 +12,7 @@
             <th>Course</th>
             <th>Number</th>
             <th>Instructor</th>
+            <th>Description</th>
             <th>TAs</th>
             <th>Sections</th>
             <th></th>
@@ -24,6 +25,8 @@
             <td>{{ c.name }}</td>
             <td>{{ c.dep_number }}</td>
             <td>{{ c.instructor.username }}</td>
+            <td>{{ c.description }}</td>
+            <td></td>
             <td>
             </td>
             <td><form action="/viewsections{{ c.name }}/">

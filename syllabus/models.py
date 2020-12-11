@@ -49,6 +49,7 @@ class Course(models.Model):
     name = models.CharField(max_length=20)
     term = models.CharField(max_length=20)
     dep_number = models.CharField(max_length=20)
+    description = models.CharField(max_length=400, default='')
     instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING)
 
 
