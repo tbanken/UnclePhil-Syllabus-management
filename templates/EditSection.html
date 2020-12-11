@@ -14,6 +14,11 @@
             <option value="discussion">Discussion</option>
 </select></td></tr>
         <tr><td>Section Number: </td><td><input type="text" name="number"></td></tr>
+    <tr><td>Instructor/TA: </td><td><select name="user" id="user">
+        {% for u in users %}
+            <option value={{ u.username }}>{{ u.username }}</option>
+        {% endfor %}
+</select></td></tr>
     </table>
     <input type="submit">
 </form>

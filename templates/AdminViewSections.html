@@ -8,21 +8,19 @@
 
     <table>
         <tr>
-            <th>Type</th>
-            <th>Number</th>
-            <th>Instructor</th>
-            <th>TA</th>
             <th></th>
             <th></th>
+            <th></th>
+            <th>Instructor/TA</th>
             <th></th>
         </tr>
 
         {% for s in sections %}
         <tr>
-            <td>{{ s.type_of }}</td>
-            <td>{{ s.number }}</td>
-            <td><!--instructors go here--></td>
-            <td><!--tas go here--></td>
+            <td></td>
+            <td></td>
+            <td>{{ s.type_of }}-{{ s.number }}</td>
+            <td>{{ s.user.username }}</td>
             <td>
                 <form action="/editsection{{ s.number }}-{{ name }}/">
                     <input type="submit" value="Edit" />
