@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial;
+    padding: 10px;
+    background: #f1f1f1;
+}
+/* Add a card effect for articles */
+#card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin: auto;
+}
+.header {
+    padding: 30px;
+    text-align: center;
+    background: white;
+    border-radius: 5px;
+    font-size: 50px;
+    width: 600px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}
+#sub {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 6px 10px;
+    font-size: 12px;
+    text-decoration: none;
+    background-size: auto;
+    background-color: gray;
+    margin: auto;
+}
