@@ -148,7 +148,7 @@ class CreateCourse(View):
     def post(self, request):
         instructor = Instructor.objects.get(username=request.POST['instruct'])
         c = Course.objects.create(name=request.POST['name'], dep_number=request.POST['number'],
-                                  term=request.POST['term'], instructor=instructor)
+                                  term=request.POST['term'], instructor=instructor, description=request.POST['desc'])
         # c.ta_set.add(TA.objects.get(username=request.POST['ta']))
         return render(request, "CreateCourse.html", {"name": request.POST['name']})
 
@@ -169,6 +169,8 @@ class EditCourse(View):
             course.dep_number = request.POST['dep_number']
         if request.POST['term'] != '':
             course.term = request.POST['term']
+        if request.POST['desc'] != '':
+            course.term = request.POST['desc']
         course.save()
         return render(request, "EditCourse.html", {"name": name})
 

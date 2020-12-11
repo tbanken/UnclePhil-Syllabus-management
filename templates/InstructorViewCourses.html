@@ -8,21 +8,40 @@
 
 <table>
         <tr>
-            <th>Name</th>
+            <th>Term</th>
+            <th>Course</th>
             <th>Number</th>
-            <th>TAs</th>
+            <th>Description</th>
+            <th>Sections</th>
             <th></th>
             <th></th>
         </tr>
-    {% for c in courses %}
+
+        {% for c in courses %}
         <tr>
-            <td>{{c.name}}</td>
+            <td>{{ c.term }}</td>
+            <td>{{ c.name }}</td>
             <td>{{ c.dep_number }}</td>
+            <td>{{ c.description }}</td>
             <td></td>
-            <td></td>
-            <td></td>
+            <td>
+            </td>
+            <td><form action="/viewsections{{ c.name }}/">
+                    <input type="submit" value="View" />
+                </form></td>
+            <td>
+                <form action="/editcourse{{ c.name }}/">
+                    <input type="submit" value="Edit" />
+                </form>
+            </td>
+            <td>
+                <form action="/deletecourse{{ c.name }}/" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
         </tr>
-    {% endfor %}
+        {% endfor %}
     </table>
 
 <form action="/instructorhome/">
