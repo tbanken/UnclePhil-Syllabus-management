@@ -16,16 +16,9 @@
             <option value={{ i.username }}>{{ i.username }}</option>
     {% endfor %}
 </select></td></tr>
-
-<tr><td>TA: </td><td><select name="ta" id="ta">
-    {% for t in tas %}
-            <option value={{ t.username }}>{{ t.username }}</option>
-    {% endfor %}
-</select></td></tr>
     </table>
     <input type="submit">
 </form>
-
 <form action="/course/">
         <input type="submit" value="Back"/>
     </form>
