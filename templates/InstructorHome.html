@@ -10,15 +10,24 @@
 <div class="header">
     <h1>Hello Instructor {{ instructor.username }}!</h1>
 </div>
-<ul class="topnav">
-<form action="/instructoredit{{ instructor.username }}/">
-    <input type="submit" value="Edit information" />
-</form>
+    <ul class="topnav">
+        <form action="/instructoredit{{ instructor.username }}/">
+            <input type="submit" value="Edit information" />
+        </form>
 
-<form action="/admin/">
-    <input type="submit" value="Courses" />
-</form>
-</ul>
+        <form action="/admin/">
+            <input type="submit" value="AdminPanel-TestPurposes" />
+        </form>
+
+        <form action="/instructorviewcourses/">
+            <input type="submit" value="Courses" />
+        </form>
+
+        <form action="/logout/">
+            <input style="float:right" type="submit" value="Logout" />
+        </form>
+    </ul>
+<div class="card">
 <table id = "InstructorInfo">
         <tr>
             <th>Name</th>
@@ -35,15 +44,7 @@
             <td>{{ instructor.email }}</td>
         </tr>
     </table>
-
-<form action="/logout/">
-    <input type="submit" value="Logout" />
-</form>
-
-<form action="/instructorviewcourses/">
-    <input type="submit" value="Courses" />
-</form>
-
+</div>
 
 </body>
 </html>

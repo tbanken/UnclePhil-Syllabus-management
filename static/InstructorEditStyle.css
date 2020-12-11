@@ -62,7 +62,7 @@ li {
   float: left;
 }
 
-input {
+input.button {
     float: left;
     display: block;
     color: white;
@@ -75,7 +75,7 @@ input {
     cursor: pointer;
 }
 
-input:hover:not(.active) {
+input.button:hover:not(.active) {
   background-color: #111;
 }
 

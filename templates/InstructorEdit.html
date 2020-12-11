@@ -7,6 +7,19 @@
     <link rel="stylesheet" href="{% static '/InstructorEditStyle.css'%}" />
 </head>
 <body>
+<div id="editCard"><h1>Edit Information</h1></div>
+
+</div>
+    <ul class="topnav">
+        <form action="/instructorhome/">
+            <input class="button" type="submit" value="Back"/>
+        </form>
+
+        <form action="/logout/">
+            <input class="button" style="float:right" type="submit" value="Logout" />
+        </form>
+    </ul>
+
     <table id="InstructorList">
         <tr>
             <th>Name</th>
@@ -27,22 +40,23 @@
 
 <div>
 
-<form action="/instructoredit{{ instructor.username }}/" method="post">
-    {% csrf_token %}
+
     <table id="editCard">
         </td></tr>
+        <form action="/instructoredit{{ instructor.username }}/" method="post">
+    {% csrf_token %}
         <tr><td>Email: </td><td><input type="text" name="email"></td></tr>
         <tr><td>First Name: </td><td><input type="text" name="first_name"></td></tr>
         <tr><td>Last Name: </td><td><input type="text" name="last_name"></td></tr>
         <tr><td>Office: </td><td><input type="text" name="office"></td></tr>
         <tr><td>Phone: </td><td><input type="text" name="phone"></td></tr>
         <tr><td>Office Hours: </td><td><input type="text" name="office_hours"></td></tr>
+
+            <tr><td><input class="button" type="submit"></td></tr>
+        </form>
+
     </table>
-    <input type="submit">
-</form>
-<form action="/instructorhome/">
-    <input type="submit" value="Back"/>
-</form>
+
 </div>
 
 </body>

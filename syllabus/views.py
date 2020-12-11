@@ -283,7 +283,8 @@ class InstructorEditInfo(View):
         instructor = Instructor.objects.get(username=username)
         edit_info(instructor, request.POST['email'], request.POST['first_name'], request.POST['last_name'],
                   request.POST['office'], request.POST['phone'], request.POST['office_hours'])
-        return redirect("/instructorhome/")
+        courses = list(Course.objects.filter(instructor=instructor))
+        return render(request, "InstructorEdit.html", {"instructor": instructor, "courses": courses})
 
 
 class Courses(View):
