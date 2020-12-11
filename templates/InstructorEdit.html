@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Instructor Edit</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/InstructorEditStyle.css'%}" />
 </head>
 <body>
-
-<table>
+    <table id="InstructorList">
         <tr>
             <th>Name</th>
             <th>Office</th>
@@ -22,11 +23,13 @@
             <td>{{ instructor.email }}</td>
         </tr>
     </table>
+<br/>
 
+<div>
 
 <form action="/instructoredit{{ instructor.username }}/" method="post">
     {% csrf_token %}
-<table>
+    <table id="editCard">
         </td></tr>
         <tr><td>Email: </td><td><input type="text" name="email"></td></tr>
         <tr><td>First Name: </td><td><input type="text" name="first_name"></td></tr>
@@ -37,11 +40,10 @@
     </table>
     <input type="submit">
 </form>
-
 <form action="/instructorhome/">
-    <input type="submit" value="Back" />
+    <input type="submit" value="Back"/>
 </form>
-
+</div>
 
 </body>
 </html>
