@@ -26,7 +26,6 @@ class Login(View):
         return render(request, "Login.html", {})
 
     def post(self, request):
-        isValid = False
         m = None
         try:
             m = Admin.objects.get(username=request.POST['name'])
@@ -108,7 +107,6 @@ class EditUser(View):
         return render(request, "EditUser.html", {"user": user, "utype": utype})
 
     def post(self, request, username, utype):
-        # TODO display the user information next to the text input
         if utype == 'ta':
             user = TA.objects.get(username=username)
         else:
@@ -133,9 +131,11 @@ class AdminViewCourses(View):
     def get(self, request):
         user = request.session["user"]
         courses = list(Course.objects.all())
-        # tas = list()
+        # tas = {}
         # for c in courses:
-        #     tas.append(list(c.ta_set))
+        #     tas[c] = frozenset((TA.objects.filter(course__in=Course.objects.filter(name=c.name))))
+        # print(tas)
+
         return render(request, "AdminViewCourses.html", {"username": user, "courses": courses})
 
 
@@ -149,7 +149,7 @@ class CreateCourse(View):
         instructor = Instructor.objects.get(username=request.POST['instruct'])
         c = Course.objects.create(name=request.POST['name'], dep_number=request.POST['number'],
                                   term=request.POST['term'], instructor=instructor)
-        c.ta_set.add(TA.objects.get(username=request.POST['ta']))
+        # c.ta_set.add(TA.objects.get(username=request.POST['ta']))
         return render(request, "CreateCourse.html", {"name": request.POST['name']})
 
 
@@ -161,28 +161,30 @@ class EditCourse(View):
         return render(request, "EditCourse.html", {"course": course, "tas": tas, "instructors": instructors})
 
     def post(self, request, name):
-        # TODO display the course information next to the text input
-        # TODO edit with tas and instructors
+
         course = Course.objects.get(name=name)
         if request.POST['name'] != '':
             course.name = request.POST['name']
         if request.POST['dep_number'] != '':
             course.dep_number = request.POST['dep_number']
-        if request.POST[''] != '':
-            course.dep_number = request.POST['dep_number']
+        if request.POST['term'] != '':
+            course.term = request.POST['term']
         course.save()
         return render(request, "EditCourse.html", {"name": name})
 
 
-# class CourseAddTA(View):
-#     def get(self, request, name):
-#         course = Course.objects.get(name=name)
-#         tas = list(TA.objects.all())
-#         return render(request, "CourseAddTA.html", {"course": course, "tas": tas})
-#
-#     def post(self, request, name):
-#         course = Course.objects.get(name=name)
-#         ta = TA.objects.get(username=request.POST['ta'])
+class CourseAddTA(View):
+    def get(self, request, name):
+        course = Course.objects.get(name=name)
+        tas = list(TA.objects.all())
+        return render(request, "CourseAddTA.html", {"course": course, "tas": tas})
+
+    def post(self, request, name):
+        course = Course.objects.get(name=name)
+        ta = TA.objects.get(username=request.POST['ta'])
+        tas = list(TA.objects.all())
+        course.ta_set.add(ta)
+        return render(request, "CourseAddTA.html", {"course": course, "tas": tas})
 
 
 # assumes that names are unique across all courses
@@ -201,27 +203,40 @@ class ViewSections(View):
 
 class CreateSection(View):
     def get(self, request, name):
-        return render(request, "CreateSection.html", {"name": name})
+        course = Course.objects.get(name=name)
+        users = list()
+        users.append(course.instructor)
+        for t in TA.objects.filter(course__in=Course.objects.filter(name=course.name)):
+            users.append(t)
+        return render(request, "CreateSection.html", {"name": name, "users": users})
 
     def post(self, request, name):
         course = Course.objects.get(name=name)
-        Section.objects.create(number=request.POST['dep_number'], type_of=request.POST['stype'], course=course)
+        user = MyUser.objects.get(username=request.POST['user'])
+        Section.objects.create(number=request.POST['number'], type_of=request.POST['stype'], user=user, course=course)
         return redirect("/viewsections" + name + "/")
 
 
 class EditSection(View):
     def get(self, request, number, name):
-        return render(request, "EditSection.html", {"dep_number": number, "name": name})
+        course = Course.objects.get(name=name)
+        users = list()
+        users.append(course.instructor)
+        for t in TA.objects.filter(course__in=Course.objects.filter(name=course.name)):
+            users.append(t)
+        return render(request, "EditSection.html", {"number": number, "name": name, "users": users})
 
     def post(self, request, number, name):
         # TODO display the section information next to the text input
         section = Section.objects.get(number=number)
         if request.POST['stype'] != '':
             section.name = request.POST['stype']
-        if request.POST['dep_number'] != '':
-            section.dep_number = request.POST['dep_number']
+        if request.POST['number'] != '':
+            section.dep_number = request.POST['number']
+        if request.POST['user'] != '':
+            section.user = MyUser.objects.get(username=request.POST['user'])
         section.save()
-        return render(request, "EditSection.html", {"dep_number": number, "name": name})
+        return render(request, "EditSection.html", {"number": number, "name": name})
 
 
 class DeleteSection(View):
@@ -267,3 +282,11 @@ class InstructorEditInfo(View):
         edit_info(instructor, request.POST['email'], request.POST['first_name'], request.POST['last_name'],
                   request.POST['office'], request.POST['phone'], request.POST['office_hours'])
         return redirect("/instructorhome/")
+
+
+class Courses(View):
+    def get(self, request):
+        courses = list(Course.objects.all())
+        return render(request, "Courses.html", {"courses": courses})
+
+

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Page</title>
+</head>
+<body>
+
+<table>
+        {% for c in courses %}
+        <tr>
+            <td><form action="">
+                    <input type="submit" value="{{ c.term }} {{ c.dep_number }} {{ c.name }} {{ c.instructor.username }}" />
+                </form></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -9,16 +9,16 @@
     {% csrf_token %}
 <table>
         <tr><td>Type: </td><td><select name="stype" id="stype">
-            <option value="lecture">Lecture</option>
-            <option value="lab">Lab</option>
-            <option value="discussion">Discussion</option>
+            <option value="LEC">Lecture</option>
+            <option value="LAB">Lab</option>
+            <option value="DIS">Discussion</option>
 </select></td></tr>
         <tr><td>Number: </td><td><input type="text" name="number"></td></tr>
     <!--Display all instructors-->
-    <tr><td>Instructor: </td><td><select name="instruct" id="instruct">
-            <option value="lecture">Lecture</option>
-            <option value="lab">Lab</option>
-            <option value="discussion">Discussion</option>
+    <tr><td>Instructor/TA: </td><td><select name="user" id="user">
+        {% for u in users %}
+            <option value={{ u.username }}>{{ u.username }}</option>
+        {% endfor %}
 </select></td></tr>
 
     </table>

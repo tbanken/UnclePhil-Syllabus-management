@@ -2,6 +2,7 @@ from django.test import TestCase, Client
 from django.core.exceptions import ObjectDoesNotExist
 from .models import *
 
+
 class TestLogin(TestCase):
     def setUp(self):
         self.client = Client()
