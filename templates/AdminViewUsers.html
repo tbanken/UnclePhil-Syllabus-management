@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin User Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/AdminViewUserStyle.css'%}" />
 </head>
 <body>
-
+<div class="header">
+<h1>Admin User Page</h1>
+</div>
     <table>
         <tr>
             <th>Users</th>
             <th>Role</th>
-            <th></th>
-            <th></th>
         </tr>
 
         {% for i in instructors %}
         <tr>
-            <td>{{ i.username }}</td>
-            <td>Instructor</td>
+            <th>{{ i.username }}</th>
+            <th>Instructor</th>
             <td>
                 <form action="/edituser{{ i.username }}-instructor/">
                     <input type="submit" value="Edit" />
@@ -34,8 +36,8 @@
 
     {% for t in tas %}
         <tr>
-            <td>{{ t.username }}</td>
-            <td>TA</td>
+            <th>{{ t.username }}</th>
+            <th>TA</th>
             <td>
                 <form action="/edituser{{ t.username }}-ta/">
                     <input type="submit" value="Edit" />
@@ -51,17 +53,22 @@
     {% endfor %}
     </table>
 
-
-    <form action="/createuser/">
-    <input type="submit" value="Create User"/>
-    </form>
-
-    <form action="/adminhome/">
-        <input type="submit" value="Home"/>
-    </form>
-
-<form action="/logout/">
-    <input type="submit" value="Logout" />
-</form>
+    <ul>
+        <li>
+            <form action="/createuser/">
+                <input type="submit" value="Create User"/>
+            </form>
+        </li>
+        <li>
+            <form action="/adminhome/">
+                <input type="submit" value="Home"/>
+            </form>
+        </li>
+        <li>
+            <form action="/logout/">
+                <input type="submit" value="Logout" />
+            </form>
+        </li>
+    </ul>
 </body>
 </html>
