@@ -3,18 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Instructor View Courses</title>
+       {% load static %}
+    <link rel="stylesheet" href="{% static '/InstructorViewCoursesStyle.css'%}" />
+
 </head>
 <body>
+<div class="header"><h1>Courses</h1></div>
+    <ul class="topnav">
+        <form action="/instructorhome/">
+            <input type="submit" value="Back" />
+        </form>
 
-<table>
+        <form action="/admin/">
+            <input type="submit" value="AdminPanel-TestPurposes" />
+        </form>
+
+        <form action="/logout/">
+            <input style="float:right" type="submit" value="Logout" />
+        </form>
+    </ul>
+
+    <br/>
+<div id="editCard">
+<table id="Courses">
         <tr>
             <th>Term</th>
             <th>Course</th>
             <th>Number</th>
             <th>Description</th>
             <th>Sections</th>
-            <th></th>
-            <th></th>
         </tr>
 
         {% for c in courses %}
@@ -23,30 +40,25 @@
             <td>{{ c.name }}</td>
             <td>{{ c.dep_number }}</td>
             <td>{{ c.description }}</td>
-            <td></td>
             <td>
             </td>
-            <td><form action="/viewsections{{ c.name }}/">
+            <td><div><form action="/viewsections{{ c.name }}/">
                     <input type="submit" value="View" />
-                </form></td>
-            <td>
+            </form></div></td>
+            <td><div>
                 <form action="/editcourse{{ c.name }}/">
                     <input type="submit" value="Edit" />
-                </form>
+                </form></div>
             </td>
-            <td>
+            <td><div>
                 <form action="/deletecourse{{ c.name }}/" method="post">
                     {% csrf_token %}
                     <input type="submit" value="Delete" />
-                </form>
+                </form></div>
             </td>
         </tr>
         {% endfor %}
     </table>
-
-<form action="/instructorhome/">
-    <input type="submit" value="Back" />
-</form>
-
+</div>
 </body>
 </html>

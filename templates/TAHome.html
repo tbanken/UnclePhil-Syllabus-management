@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>TA Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/TAHomeStyle.css'%}" />
+
 </head>
 <body>
 <h2>Hello TA {{ ta.username }}!</h2>

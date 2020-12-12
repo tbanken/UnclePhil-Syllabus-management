@@ -300,8 +300,6 @@ class InstructorViewCourses(View):
 
 
 
-
-
 class Courses(View):
     def get(self, request):
         courses = list(Course.objects.all())

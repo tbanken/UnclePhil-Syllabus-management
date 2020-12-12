@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="{% static '/InstructorEditStyle.css'%}" />
 </head>
 <body>
-<div id="editCard"><h1>Edit Information</h1></div>
-
-</div>
+<div class="header"><h1>Edit Information</h1></div>
     <ul class="topnav">
         <form action="/instructorhome/">
             <input class="button" type="submit" value="Back"/>
@@ -19,8 +17,8 @@
             <input class="button" style="float:right" type="submit" value="Logout" />
         </form>
     </ul>
-
-    <table id="InstructorList">
+<div id="editCard">
+    <table id="InstructorList" >
         <tr>
             <th>Name</th>
             <th>Office</th>
@@ -36,6 +34,7 @@
             <td>{{ instructor.email }}</td>
         </tr>
     </table>
+</div>
 <br/>
 
 <div>
