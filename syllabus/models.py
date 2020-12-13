@@ -45,12 +45,22 @@ class Instructor(MyUser):
         verbose_name_plural = "Instructors"
 
 
+class SyllabusPolicy(models.Model):
+    instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING)
+    policy_text = models.CharField(max_length=400)
+
+
+class Syllabus(models.Model):
+    policies = models.ManyToManyField(SyllabusPolicy)
+
+
 class Course(models.Model):
     name = models.CharField(max_length=20)
     term = models.CharField(max_length=20)
     dep_number = models.CharField(max_length=20)
     description = models.CharField(max_length=400, default='')
     instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING)
+    syllabus = models.ForeignKey(Syllabus, on_delete=models.DO_NOTHING, null=True)
 
 
 class Section(models.Model):
@@ -58,3 +68,5 @@ class Section(models.Model):
     number = models.IntegerField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     user = models.OneToOneField(MyUser, on_delete=models.DO_NOTHING)
+
+
