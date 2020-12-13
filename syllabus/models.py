@@ -46,12 +46,8 @@ class Instructor(MyUser):
 
 
 class SyllabusPolicy(models.Model):
-    instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING)
     policy_text = models.CharField(max_length=400)
-
-
-class Syllabus(models.Model):
-    policies = models.ManyToManyField(SyllabusPolicy)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=True)
 
 
 class Course(models.Model):
@@ -60,7 +56,7 @@ class Course(models.Model):
     dep_number = models.CharField(max_length=20)
     description = models.CharField(max_length=400, default='')
     instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING)
-    syllabus = models.OneToOneField(Syllabus, on_delete=models.DO_NOTHING)
+    policies = models.ManyToManyField(SyllabusPolicy)
 
 
 class Section(models.Model):

@@ -28,6 +28,8 @@ urlpatterns = [
     path('taedit<str:username>/', TAEdit.as_view()),
     path('instructorhome/', InstructorHome.as_view()),
     path('instructoredit<str:username>/', InstructorEditInfo.as_view()),
+    path('instructorviewcourses/', InstructorViewCourses.as_view()),
+    path('instructorviewpolicies/', InstructorViewPolicies.as_view()),
     path('adminhome/', AdminHome.as_view()),
     path('user/', AdminViewUsers.as_view()),
     path('edituser<str:username>-<str:utype>/', EditUser.as_view()),

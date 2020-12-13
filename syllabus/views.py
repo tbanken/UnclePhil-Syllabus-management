@@ -287,9 +287,33 @@ class InstructorEditInfo(View):
         return render(request, "InstructorEdit.html", {"instructor": instructor, "courses": courses})
 
 
+class InstructorViewCourses(View):
+    def get(self, request):
+        username = request.session["user"]
+        instructor = Instructor.objects.get(username=username)
+        courses = list(Course.objects.filter(instructor=instructor))
+        return render(request, "InstructorViewCourses.html", {"courses": courses})
+
+
+class InstructorViewPolicies(View):
+    def get(self, request):
+        username = request.session["user"]
+        instructor = Instructor.objects.get(username=username)
+        policies = SyllabusPolicy.objects.filter(instructor=instructor)
+        return render(request, "InstructorViewPolicies.html", {
+            "instructor": instructor,
+            "policies": policies})
+
+    def post(self, request):
+        new_policy_text = request.POST['new_policy_text']
+        SyllabusPolicy.objects.create(
+            policy_text=new_policy_text,
+            instructor=Instructor.objects.get(username=request.session["user"])
+        )
+        return redirect("/instructorviewpolicies/")
+
+
 class Courses(View):
     def get(self, request):
         courses = list(Course.objects.all())
         return render(request, "Courses.html", {"courses": courses})
-
-
