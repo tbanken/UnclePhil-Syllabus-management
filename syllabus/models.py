@@ -60,7 +60,7 @@ class Course(models.Model):
     dep_number = models.CharField(max_length=20)
     description = models.CharField(max_length=400, default='')
     instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING)
-    syllabus = models.ForeignKey(Syllabus, on_delete=models.DO_NOTHING, null=True)
+    syllabus = models.OneToOneField(Syllabus, on_delete=models.DO_NOTHING)
 
 
 class Section(models.Model):
