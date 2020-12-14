@@ -94,6 +94,8 @@ class TestModifyUsers(TestCase):
         with self.assertRaises(ObjectDoesNotExist):
             TA.objects.get(username='ta', password='ta')
 
+    # TODO test user editing as a TA and instructor
+
 
 class TestModifyCourse(TestCase):
     def setUp(self):
@@ -118,7 +120,23 @@ class TestModifyCourse(TestCase):
         self.assertEqual(Course.objects.get(name='MATH').dep_number, 413)
 
 
+
+class TestModifySection(TestCase):
+    pass
+
+
 class TestAssignUser(TestCase):
     def setUp(self):
         self.user_instructor = Instructor.objects.create(username='instructor', password='instructor',
                                                          email='instructor@uwm.edu')
+
+
+class TestModifySyllabusComponent(TestCase):
+    pass
+
+class TestViewCourse(TestCase):
+    pass
+
+
+
+
