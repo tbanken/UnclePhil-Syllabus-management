@@ -213,7 +213,7 @@ class ViewSections(View):
         sections = list(Section.objects.filter(course=course))
         return render(request, "Admin/AdminViewSections.html", {"name": name, "sections": sections})
 
-
+#assumes that only an instructor can be assigned to a lecture
 class CreateSection(View):
     def get(self, request, name):
         course = Course.objects.get(name=name)
@@ -224,6 +224,9 @@ class CreateSection(View):
         return render(request, "Admin/CreateSection.html", {"name": name, "users": users})
 
     def post(self, request, name):
+        if request.POST['number'] == '' or request.POST['stype'] == '' or request.POST['days'] == '' or \
+                request.POST['time'] == '':
+            return render(request, "Admin/CreateCourse.html", {"pf": 'Please enter all fields excluding instructor'})
         course = Course.objects.get(name=name)
         if request.POST['stype'] == "LEC":
             instructor = Instructor.objects.get(username=request.POST['user'])
@@ -231,8 +234,6 @@ class CreateSection(View):
         else:
             ta = TA.objects.get(username=request.POST['user'])
             instructor = None
-        print(ta)
-        print(instructor)
         Section.objects.create(number=request.POST['number'], type_of=request.POST['stype'], ta=ta,
                                instructor=instructor, course=course, days=request.POST['days'],
                                time=request.POST['time'])
