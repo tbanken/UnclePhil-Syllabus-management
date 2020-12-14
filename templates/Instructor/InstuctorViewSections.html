@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Sections</title>
+    <title>Title</title>
 </head>
 <body>
-
- <table>
+    <table>
         <tr>
             <th>Section</th>
             <th>Days</th>
@@ -19,12 +18,9 @@
             <td>{{ s.type_of }}-{{ s.number }}</td>
             <td>{{ s.days }}</td>
             <td>{{ s.time }}</td>
-           <td>{{ s.ta.first_name }} {{ s.ta.last_name }} {{ s.instructor.first_name }} {{  s.instructor.last_name }}</td>
+            <td>{{ s.ta.first_name }} {{ s.ta.last_name }} {{ s.instructor.first_name }} {{  s.instructor.last_name }}</td>
         </tr>
         {% endfor %}
     </table>
-<form action="/taviewcourses/">
-        <input type="submit" value="Back"/>
-    </form>
 </body>
 </html>

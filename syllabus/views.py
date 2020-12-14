@@ -234,7 +234,8 @@ class CreateSection(View):
         print(ta)
         print(instructor)
         Section.objects.create(number=request.POST['number'], type_of=request.POST['stype'], ta=ta,
-                               instructor=instructor, course=course, days=request.POST['days'], time=request.POST['time'])
+                               instructor=instructor, course=course, days=request.POST['days'],
+                               time=request.POST['time'])
         return redirect("/viewsections" + name + "/")
 
 
@@ -249,12 +250,11 @@ class EditSection(View):
         if sec.instructor is None:
             ta = sec.ta
             return render(request, "Admin/EditSection.html",
-                          {"number": number, "name": name, "users": users, "sec": sec, "ta":ta})
+                          {"number": number, "name": name, "users": users, "sec": sec, "ta": ta})
         else:
             instructor = sec.instructor
             return render(request, "Admin/EditSection.html",
-                          {"number": number, "name": name, "users": users, "sec": sec, "instructor":instructor})
-
+                          {"number": number, "name": name, "users": users, "sec": sec, "instructor": instructor})
 
     def post(self, request, number, name):
         section = Section.objects.get(number=number)
@@ -280,7 +280,7 @@ class EditSection(View):
 
 class DeleteSection(View):
     def post(self, request, number, name):
-        Section.objects.get(number=number,course=Course.objects.get(name=name)).delete()
+        Section.objects.get(number=number, course=Course.objects.get(name=name)).delete()
         return redirect("/viewsections" + name + "/")
 
 
@@ -307,6 +307,12 @@ class TAViewCourses(View):
     def get(self, request):
         courses = Course.objects.filter(ta__username=request.session["user"])
         return render(request, "TA/TAViewCourses.html", {"courses": courses})
+
+
+class TAViewSections(View):
+    def get(self, request, name):
+        sections = Section.objects.filter(course__name=name)
+        return render(request, "TA/TAViewSections.html", {"sections": sections})
 
 
 class InstructorHome(View):
@@ -337,6 +343,12 @@ class InstructorViewCourses(View):
         instructor = Instructor.objects.get(username=username)
         courses = list(Course.objects.filter(instructor=instructor))
         return render(request, "Instructor/InstructorViewCourses.html", {"courses": courses})
+
+
+class InstructorViewSections(View):
+    def get(self, request, name):
+        sections = Section.objects.filter(course__name=name)
+        return render(request, "Instructor/InstuctorViewSections.html", {"sections": sections})
 
 
 class InstructorViewPolicies(View):
