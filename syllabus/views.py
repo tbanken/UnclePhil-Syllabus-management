@@ -237,7 +237,6 @@ class EditSection(View):
         return render(request, "EditSection.html", {"number": number, "name": name, "users": users, "sec": sec})
 
     def post(self, request, number, name):
-        # TODO display the section information next to the text input
         section = Section.objects.get(number=number)
         if request.POST['stype'] != '':
             section.name = request.POST['stype']
@@ -263,12 +262,12 @@ class TAHome(View):
 
 
 class TAEdit(View):
-    def get(self, request, username):
-        ta = TA.objects.get(username=username)
+    def get(self, request):
+        ta = TA.objects.get(username=request.session["user"])
         return render(request, "TAEdit.html", {"ta": ta})
 
-    def post(self, request, username):
-        ta = TA.objects.get(username=username)
+    def post(self, request):
+        ta = TA.objects.get(username=request.session["user"])
         edit_info(ta, request.POST['email'], request.POST['first_name'], request.POST['last_name'],
                   request.POST['office'], request.POST['phone'], request.POST['office_hours'])
         return redirect("/tahome/")
@@ -326,3 +325,15 @@ class Courses(View):
     def get(self, request):
         courses = list(Course.objects.all())
         return render(request, "Courses.html", {"courses": courses})
+
+
+class ViewCourse(View):
+    def get(self, request, term, dep_number):
+        course = Course.objects.get(dep_number=dep_number)
+        sections = list(Section.objects.filter(course=course))
+        instructor = course.instructor
+        tas = list(course.ta_set.all())
+        policies = course.policies.all()
+        return render(request, "ViewCourse.html", {"course": course, "sections": sections, "instructor": instructor,
+                                                   "tas": tas, "policies": policies})
+

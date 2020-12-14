@@ -2,9 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>View</title>
 </head>
 <body>
 
+<h2>{{ course.name }} - {{ course.term }}</h2>
+<h2>{{ course.dep_number }}</h2>
+<p>{{ course.description }}</p>
+    <table>
+        <tr>
+            <th>Sections</th>
+            <th>Instructor/TA</th>
+        </tr>
+        {% for s in sections %}
+        <tr>
+            <td>{{ s.type_of }}-{{ s.number }}</td>
+            <td>{{ s.user.first_name }}{{ s.user.last_name }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+<h2>Policies</h2>
+<br>
+{% for p in policies %}
+
+    <p>{{ p.policy_text }}</p>
+    <br>
+{% endfor %}
+
+<h2>Instructor</h2>
+<br>
+<h3>{{ course.instructor }}</h3>
+
+<h2>Teaching Assistants</h2>
+ {% for t in tas %}
+     <h3>{{ t.first_name }} {{ t.last_name }}</h3>
+{% endfor %}
 </body>
 </html>
