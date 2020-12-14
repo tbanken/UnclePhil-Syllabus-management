@@ -12,9 +12,8 @@
             <th>Course</th>
             <th>Number</th>
             <th>Description</th>
+            <th>TAs</th>
             <th>Sections</th>
-            <th></th>
-            <th></th>
         </tr>
 
         {% for c in courses %}
@@ -23,23 +22,13 @@
             <td>{{ c.name }}</td>
             <td>{{ c.dep_number }}</td>
             <td>{{ c.description }}</td>
-            <td></td>
-            <td>
-            </td>
-            <td><form action="/viewsections{{ c.name }}/">
+
+            <td>{% for t in tas %}
+                {% endfor %}</td>
+            <td><form action="/instructorviewsections{{ c.name }}/">
                     <input type="submit" value="View" />
                 </form></td>
-            <td>
-                <form action="/editcourse{{ c.name }}/">
-                    <input type="submit" value="Edit" />
-                </form>
-            </td>
-            <td>
-                <form action="/deletecourse{{ c.name }}/" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="Delete" />
-                </form>
-            </td>
+
         </tr>
         {% endfor %}
     </table>

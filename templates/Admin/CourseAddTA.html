@@ -12,7 +12,6 @@
             <th>Name</th>
             <th>Number</th>
             <th>Term</th>
-            <th>Name</th>
             <th>Instructor</th>
             <th>TAs</th>
         </tr>
@@ -20,8 +19,8 @@
         <tr>
             <td>{{ course.name }}</td>
             <td>{{ course.dep_number }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ course.term }}</td>
+            <td>{{ course.instructor.username }}</td>
             <td></td>
             <td></td>
         </tr>

@@ -16,8 +16,8 @@
         </tr>
         {% for s in sections %}
         <tr>
-            <td>{{ s.type_of }}-{{ s.number }}</td>
-            <td>{{ s.user.first_name }}{{ s.user.last_name }}</td>
+            <td>{{ s.type_of }}-{{ s.number }}: {{ s.days }} {{ s.time }}</td>
+            <td>{{ s.ta.last_name }} {{ s.ta.last_name }} {{ s.instructor.first_name }} {{ s.instructor.last_name }}</td>
         </tr>
         {% endfor %}
     </table>
@@ -38,8 +38,8 @@
 
 <h2>Teaching Assistants</h2>
  {% for t in tas %}
-     <h3>{{ t.first_name }} {{ t.last_name }} Email:{{ course.instructor.email }} Office:{{ course.instructor.office }}
-    Office Hours: {{ course.instructor.office_hours }}</h3>
+     <h3>{{ t.first_name }} {{ t.last_name }} Email:{{ t.email }} Office:{{ t.office }}
+    Office Hours: {{ t.office_hours }}</h3>
 {% endfor %}
 </body>
 </html>

@@ -26,11 +26,18 @@
     </table>
 </div>
 <br>
+
+
 <form action="/instructorviewpolicies/" method="post">
     {% csrf_token %}
     <textarea name="new_policy_text" rows="10" cols="50" placeholder="Type your new policy here..."></textarea>
     <br><br>
     <input type="submit">
 </form>
+<form action="/instructorhome/">
+            <input class="button" type="submit" value="Back"/>
+        </form>
+
+
 </body>
 </html>

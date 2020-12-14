@@ -5,6 +5,7 @@
     <title>Create Section</title>
 </head>
 <body>
+<h3>When creating a section please fill out all fields</h3>
 <form action="/createsection{{ name }}/" method="post">
     {% csrf_token %}
 <table>
@@ -14,7 +15,8 @@
             <option value="DIS">Discussion</option>
 </select></td></tr>
         <tr><td>Number: </td><td><input type="text" name="number"></td></tr>
-    <!--Display all instructors-->
+        <tr><td>Days(eg MWF): </td><td><input type="text" name="days"></td></tr>
+        <tr><td>Time(eg 1:00-1:50 PM): </td><td><input type="text" name="time"></td></tr>
     <tr><td>Instructor/TA: </td><td><select name="user" id="user">
         {% for u in users %}
             <option value={{ u.username }}>{{ u.username }}</option>
