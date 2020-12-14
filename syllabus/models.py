@@ -55,14 +55,18 @@ class Course(models.Model):
     term = models.CharField(max_length=20)
     dep_number = models.CharField(max_length=20)
     description = models.CharField(max_length=400, default='')
-    instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING)
+    instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING, null=True)
+
     policies = models.ManyToManyField(SyllabusPolicy)
 
 
 class Section(models.Model):
     type_of = models.CharField(max_length=20)
     number = models.IntegerField()
+    days = models.CharField(max_length=20)
+    time = models.CharField(max_length=20)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    user = models.OneToOneField(MyUser, on_delete=models.DO_NOTHING)
+    ta = models.ForeignKey(TA, on_delete=models.DO_NOTHING, null=True)
+    instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING, null=True)
 
 

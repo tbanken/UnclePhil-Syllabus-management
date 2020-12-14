@@ -9,12 +9,16 @@
  <table>
         <tr>
             <th>Section</th>
+            <th></th>
+            <th></th>
             <th>Instructor/TA</th>
         </tr>
 
         {% for s in sections %}
         <tr>
             <td>{{ s.type_of }}-{{ s.number }}</td>
+            <td>{{ s.days }}</td>
+            <td>{{ s.time }}</td>
             <td>{{ s.user.username }}</td>
         </tr>
         {% endfor %}

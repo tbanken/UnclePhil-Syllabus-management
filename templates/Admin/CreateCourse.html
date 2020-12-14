@@ -13,6 +13,7 @@
         <tr><td>Term: </td><td><input type="text" name="term"></td></tr>
         <tr><td>Description: </td><td><input type="text" name="desc"></td></tr>
         <tr><td>Instructor: </td><td><select name="instruct" id="instruct">
+         <option value=''></option>
     {% for i in instructors %}
             <option value={{ i.username }}>{{ i.username }}</option>
     {% endfor %}
