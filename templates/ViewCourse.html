@@ -32,11 +32,14 @@
 
 <h2>Instructor</h2>
 <br>
-<h3>{{ course.instructor }}</h3>
+<h3>{{ course.instructor.first_name }} {{ course.instructor.last_name }}
+    Email: <p>{{ course.instructor.email }}</p>  Office: <p>{{ course.instructor.office }}</p>
+    Office Hours:  <p>{{ course.instructor.office_hours }}</p></h3>
 
 <h2>Teaching Assistants</h2>
  {% for t in tas %}
-     <h3>{{ t.first_name }} {{ t.last_name }}</h3>
+     <h3>{{ t.first_name }} {{ t.last_name }} Email:{{ course.instructor.email }} Office:{{ course.instructor.office }}
+    Office Hours: {{ course.instructor.office_hours }}</h3>
 {% endfor %}
 </body>
 </html>

@@ -26,7 +26,8 @@
             <td>{{ c.dep_number }}</td>
             <td>{{ c.instructor.username }}</td>
             <td>{{ c.description }}</td>
-            <td></td>
+            <td>{% for t in tas %}
+                {% endfor %}</td>
             <td><form action="/viewsections{{ c.name }}/">
                     <input type="submit" value="View" />
                 </form></td>

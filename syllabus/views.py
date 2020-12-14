@@ -67,26 +67,26 @@ class Logout(View):
 
 class AdminHome(View):
     def get(self, request):
-        return render(request, "AdminHome.html", {"username": request.session["user"]})
+        return render(request, "Admin/AdminHome.html", {"username": request.session["user"]})
 
 
 class AdminViewUsers(View):
     def get(self, request):
         tas = list(TA.objects.all())
         instructors = list(Instructor.objects.all())
-        return render(request, "AdminViewUsers.html", {"username": request.session["user"], "instructors": instructors,
+        return render(request, "Admin/AdminViewUsers.html", {"username": request.session["user"], "instructors": instructors,
                                                        "tas": tas})
 
 
 class CreateUser(View):
     def get(self, request):
-        return render(request, "CreateUser.html", {"pf": ''})
+        return render(request, "Admin/CreateUser.html", {"pf": ''})
 
     def post(self, request):
         utype = request.POST['utype']
 
         if request.POST['name'] == '' or request.POST['password'] == '' or request.POST['email'] == '':
-            return render(request, "CreateUser.html", {"pf": 'Please enter a username, password, and email to create '
+            return render(request, "Admin/CreateUser.html", {"pf": 'Please enter a username, password, and email to create '
                                                              'a user'})
 
         if utype == 'ta':
@@ -99,13 +99,16 @@ class CreateUser(View):
                                       email=request.POST['email'], first_name=request.POST['first_name'],
                                       last_name=request.POST['last_name'], office=request.POST['office'],
                                       phone=request.POST['phone'], office_hours=request.POST['office_hours'])
-        return render(request, "CreateUser.html", {"pf": 'Success! User created'})
+        return render(request, "Admin/CreateUser.html", {"pf": 'Success! User created'})
 
 
 class EditUser(View):
     def get(self, request, username, utype):
-        user = MyUser.objects.get(username=username)
-        return render(request, "EditUser.html", {"user": user, "utype": utype})
+        if utype == 'ta':
+            user = TA.objects.get(username=username)
+        else:
+            user = Instructor.objects.get(username=username)
+        return render(request, "Admin/EditUser.html", {"user": user, "utype": utype})
 
     def post(self, request, username, utype):
         if utype == 'ta':
@@ -118,7 +121,7 @@ class EditUser(View):
                 user.password = request.POST['password']
         edit_info(user, request.POST['email'], request.POST['first_name'], request.POST['last_name'],
                   request.POST['office'], request.POST['phone'], request.POST['office_hours'])
-        return render(request, "EditUser.html", {})
+        return render(request, "Admin/EditUser.html", {})
 
 
 # assumes that usernames are unique across all users
@@ -132,30 +135,28 @@ class AdminViewCourses(View):
     def get(self, request):
         user = request.session["user"]
         courses = list(Course.objects.all())
-        # tas = {}
+        tas = {}
         # for c in courses:
-        #     tas[c] = frozenset((TA.objects.filter(course__in=Course.objects.filter(name=c.name))))
-        # print(tas)
-
-        return render(request, "AdminViewCourses.html", {"username": user, "courses": courses})
+        #     tas = list(c.ta_set.all())
+        return render(request, "Admin/AdminViewCourses.html", {"username": user, "courses": courses})
 
 
 class CreateCourse(View):
     def get(self, request):
         instructors = list(Instructor.objects.all())
         tas = list(TA.objects.all())
-        return render(request, "CreateCourse.html", {"tas": tas, "instructors": instructors})
+        return render(request, "Admin/CreateCourse.html", {"tas": tas, "instructors": instructors})
 
     def post(self, request):
         if request.POST['name'] == '' or request.POST['dep_number'] == '' or request.POST['instruct'] == '' or \
                 request.POST['term'] == '':
-            return render(request, "CreateCourse.html", {"pf": 'Please enter all fields excluding description'})
+            return render(request, "Admin/CreateCourse.html", {"pf": 'Please enter all fields excluding description'})
 
         instructor = Instructor.objects.get(username=request.POST['instruct'])
         c = Course.objects.create(name=request.POST['name'], dep_number=request.POST['dep_number'],
                                   term=request.POST['term'], instructor=instructor, description=request.POST['desc'])
         # c.ta_set.add(TA.objects.get(username=request.POST['ta']))
-        return render(request, "CreateCourse.html", {"name": request.POST['name'], "pf": 'Success! Course created'})
+        return render(request, "Admin/CreateCourse.html", {"name": request.POST['name'], "pf": 'Success! Course created'})
 
 
 class EditCourse(View):
@@ -163,7 +164,7 @@ class EditCourse(View):
         course = Course.objects.get(name=name)
         instructors = list(Instructor.objects.all())
         tas = list(TA.objects.all())
-        return render(request, "EditCourse.html", {"course": course, "tas": tas, "instructors": instructors})
+        return render(request, "Admin/EditCourse.html", {"course": course, "tas": tas, "instructors": instructors})
 
     def post(self, request, name):
 
@@ -179,21 +180,21 @@ class EditCourse(View):
         if request.POST['instruct'] != '':
             course.instructor = Instructor.objects.get(username=request.POST['instruct'])
         course.save()
-        return render(request, "EditCourse.html", {"name": name})
+        return render(request, "Admin/EditCourse.html", {"name": name})
 
 
 class CourseAddTA(View):
     def get(self, request, name):
         course = Course.objects.get(name=name)
         tas = list(TA.objects.all())
-        return render(request, "CourseAddTA.html", {"course": course, "tas": tas})
+        return render(request, "Admin/CourseAddTA.html", {"course": course, "tas": tas})
 
     def post(self, request, name):
         course = Course.objects.get(name=name)
         ta = TA.objects.get(username=request.POST['ta'])
         tas = list(TA.objects.all())
         course.ta_set.add(ta)
-        return render(request, "CourseAddTA.html", {"course": course, "tas": tas})
+        return render(request, "Admin/CourseAddTA.html", {"course": course, "tas": tas})
 
 
 # assumes that names are unique across all courses
@@ -207,7 +208,7 @@ class ViewSections(View):
     def get(self, request, name):
         course = Course.objects.get(name=name)
         sections = list(Section.objects.filter(course=course))
-        return render(request, "AdminViewSections.html", {"name": name, "sections": sections})
+        return render(request, "Admin/AdminViewSections.html", {"name": name, "sections": sections})
 
 
 class CreateSection(View):
@@ -217,7 +218,7 @@ class CreateSection(View):
         users.append(course.instructor)
         for t in TA.objects.filter(course__in=Course.objects.filter(name=course.name)):
             users.append(t)
-        return render(request, "CreateSection.html", {"name": name, "users": users})
+        return render(request, "Admin/CreateSection.html", {"name": name, "users": users})
 
     def post(self, request, name):
         course = Course.objects.get(name=name)
@@ -234,7 +235,7 @@ class EditSection(View):
         sec = Section.objects.get(number=number)
         for t in TA.objects.filter(course__in=Course.objects.filter(name=course.name)):
             users.append(t)
-        return render(request, "EditSection.html", {"number": number, "name": name, "users": users, "sec": sec})
+        return render(request, "Admin/EditSection.html", {"number": number, "name": name, "users": users, "sec": sec})
 
     def post(self, request, number, name):
         section = Section.objects.get(number=number)
@@ -245,7 +246,7 @@ class EditSection(View):
         if request.POST['user'] != '':
             section.user = MyUser.objects.get(username=request.POST['user'])
         section.save()
-        return render(request, "EditSection.html", {"number": number, "name": name})
+        return render(request, "Admin/EditSection.html", {"number": number, "name": name})
 
 
 class DeleteSection(View):
@@ -258,33 +259,39 @@ class TAHome(View):
     def get(self, request):
         username = request.session["user"]
         ta = TA.objects.get(username=username)
-        return render(request, "TAHome.html", {"ta": ta})
+        return render(request, "TA/TAHome.html", {"ta": ta})
 
 
 class TAEdit(View):
     def get(self, request):
         ta = TA.objects.get(username=request.session["user"])
-        return render(request, "TAEdit.html", {"ta": ta})
+        return render(request, "TA/TAEdit.html", {"ta": ta})
 
     def post(self, request):
         ta = TA.objects.get(username=request.session["user"])
         edit_info(ta, request.POST['email'], request.POST['first_name'], request.POST['last_name'],
                   request.POST['office'], request.POST['phone'], request.POST['office_hours'])
-        return redirect("/tahome/")
+        return render(request, "TA/TAEdit.html", {"ta": ta})
+
+
+class TAViewCourses(View):
+    def get(self, request):
+        courses = Course.objects.filter(ta__username=request.session["user"])
+        return render(request, "TA/TAViewCourses.html", {"courses": courses})
 
 
 class InstructorHome(View):
     def get(self, request):
         username = request.session["user"]
         instructor = Instructor.objects.get(username=username)
-        return render(request, "InstructorHome.html", {"username": username, "instructor": instructor})
+        return render(request, "Instructor/InstructorHome.html", {"username": username, "instructor": instructor})
 
 
 class InstructorEditInfo(View):
     def get(self, request):
         username = request.session["user"]
         instructor = Instructor.objects.get(username=username)
-        return render(request, "InstructorEdit.html", {"instructor": instructor})
+        return render(request, "Instructor/InstructorEdit.html", {"instructor": instructor})
 
     def post(self, request):
         username = request.session["user"]
@@ -292,7 +299,7 @@ class InstructorEditInfo(View):
         edit_info(instructor, request.POST['email'], request.POST['first_name'], request.POST['last_name'],
                   request.POST['office'], request.POST['phone'], request.POST['office_hours'])
 
-        return render(request, "InstructorEdit.html", {"instructor": instructor})
+        return render(request, "Instructor/InstructorEdit.html", {"instructor": instructor})
 
 
 class InstructorViewCourses(View):
@@ -300,7 +307,7 @@ class InstructorViewCourses(View):
         username = request.session["user"]
         instructor = Instructor.objects.get(username=username)
         courses = list(Course.objects.filter(instructor=instructor))
-        return render(request, "InstructorViewCourses.html", {"courses": courses})
+        return render(request, "Instructor/InstructorViewCourses.html", {"courses": courses})
 
 
 class InstructorViewPolicies(View):
@@ -308,7 +315,7 @@ class InstructorViewPolicies(View):
         username = request.session["user"]
         instructor = Instructor.objects.get(username=username)
         policies = SyllabusPolicy.objects.filter(instructor=instructor)
-        return render(request, "InstructorViewPolicies.html", {
+        return render(request, "Instructor/InstructorViewPolicies.html", {
             "instructor": instructor,
             "policies": policies})
 

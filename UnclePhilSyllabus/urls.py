@@ -26,6 +26,7 @@ urlpatterns = [
     path('logout/', Logout.as_view()),
     path('tahome/', TAHome.as_view()),
     path('taedit/', TAEdit.as_view()),
+    path('taviewcourses/', TAViewCourses.as_view()),
     path('instructorhome/', InstructorHome.as_view()),
     path('instructoredit/', InstructorEditInfo.as_view()),
     path('instructorviewcourses/', InstructorViewCourses.as_view()),

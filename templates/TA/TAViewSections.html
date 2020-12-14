@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Sections</title>
+</head>
+<body>
+
+ <table>
+        <tr>
+            <th>Section</th>
+            <th>Instructor/TA</th>
+        </tr>
+
+        {% for s in sections %}
+        <tr>
+            <td>{{ s.type_of }}-{{ s.number }}</td>
+            <td>{{ s.user.username }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+<form action="/taviewcourses/">
+        <input type="submit" value="Back"/>
+    </form>
+</body>
+</html>
