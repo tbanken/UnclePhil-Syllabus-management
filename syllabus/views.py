@@ -80,13 +80,14 @@ class AdminViewUsers(View):
 
 class CreateUser(View):
     def get(self, request):
-        return render(request, "CreateUser.html", {})
+        return render(request, "CreateUser.html", {"pf": ''})
 
     def post(self, request):
         utype = request.POST['utype']
 
         if request.POST['name'] == '' or request.POST['password'] == '' or request.POST['email'] == '':
-            return redirect("/createuser/")
+            return render(request, "CreateUser.html", {"pf": 'Please enter a username, password, and email to create '
+                                                             'a user'})
 
         if utype == 'ta':
             TA.objects.create(username=request.POST['name'], password=request.POST['password'],
@@ -98,7 +99,7 @@ class CreateUser(View):
                                       email=request.POST['email'], first_name=request.POST['first_name'],
                                       last_name=request.POST['last_name'], office=request.POST['office'],
                                       phone=request.POST['phone'], office_hours=request.POST['office_hours'])
-        return render(request, "CreateUser.html", {})
+        return render(request, "CreateUser.html", {"pf": 'Success! User created'})
 
 
 class EditUser(View):
@@ -146,11 +147,15 @@ class CreateCourse(View):
         return render(request, "CreateCourse.html", {"tas": tas, "instructors": instructors})
 
     def post(self, request):
+        if request.POST['name'] == '' or request.POST['dep_number'] == '' or request.POST['instruct'] == '' or \
+                request.POST['term'] == '':
+            return render(request, "CreateCourse.html", {"pf": 'Please enter all fields excluding description'})
+
         instructor = Instructor.objects.get(username=request.POST['instruct'])
-        c = Course.objects.create(name=request.POST['name'], dep_number=request.POST['number'],
+        c = Course.objects.create(name=request.POST['name'], dep_number=request.POST['dep_number'],
                                   term=request.POST['term'], instructor=instructor, description=request.POST['desc'])
         # c.ta_set.add(TA.objects.get(username=request.POST['ta']))
-        return render(request, "CreateCourse.html", {"name": request.POST['name']})
+        return render(request, "CreateCourse.html", {"name": request.POST['name'], "pf": 'Success! Course created'})
 
 
 class EditCourse(View):
@@ -170,7 +175,9 @@ class EditCourse(View):
         if request.POST['term'] != '':
             course.term = request.POST['term']
         if request.POST['desc'] != '':
-            course.term = request.POST['desc']
+            course.desc = request.POST['desc']
+        if request.POST['instruct'] != '':
+            course.instructor = Instructor.objects.get(username=request.POST['instruct'])
         course.save()
         return render(request, "EditCourse.html", {"name": name})
 
@@ -224,9 +231,10 @@ class EditSection(View):
         course = Course.objects.get(name=name)
         users = list()
         users.append(course.instructor)
+        sec = Section.objects.get(number=number)
         for t in TA.objects.filter(course__in=Course.objects.filter(name=course.name)):
             users.append(t)
-        return render(request, "EditSection.html", {"number": number, "name": name, "users": users})
+        return render(request, "EditSection.html", {"number": number, "name": name, "users": users, "sec": sec})
 
     def post(self, request, number, name):
         # TODO display the section information next to the text input
@@ -270,21 +278,22 @@ class InstructorHome(View):
     def get(self, request):
         username = request.session["user"]
         instructor = Instructor.objects.get(username=username)
-        return render(request, "InstructorHome.html", {"instructor": instructor})
+        return render(request, "InstructorHome.html", {"username": username, "instructor": instructor})
 
 
 class InstructorEditInfo(View):
-    def get(self, request, username):
+    def get(self, request):
+        username = request.session["user"]
         instructor = Instructor.objects.get(username=username)
-        courses = list(Course.objects.filter(instructor=instructor))
-        return render(request, "InstructorEdit.html", {"instructor": instructor, "courses": courses})
+        return render(request, "InstructorEdit.html", {"instructor": instructor})
 
-    def post(self, request, username):
+    def post(self, request):
+        username = request.session["user"]
         instructor = Instructor.objects.get(username=username)
         edit_info(instructor, request.POST['email'], request.POST['first_name'], request.POST['last_name'],
                   request.POST['office'], request.POST['phone'], request.POST['office_hours'])
-        courses = list(Course.objects.filter(instructor=instructor))
-        return render(request, "InstructorEdit.html", {"instructor": instructor, "courses": courses})
+
+        return render(request, "InstructorEdit.html", {"instructor": instructor})
 
 
 class InstructorViewCourses(View):

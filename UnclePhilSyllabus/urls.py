@@ -27,7 +27,7 @@ urlpatterns = [
     path('tahome/', TAHome.as_view()),
     path('taedit<str:username>/', TAEdit.as_view()),
     path('instructorhome/', InstructorHome.as_view()),
-    path('instructoredit<str:username>/', InstructorEditInfo.as_view()),
+    path('instructoredit/', InstructorEditInfo.as_view()),
     path('instructorviewcourses/', InstructorViewCourses.as_view()),
     path('instructorviewpolicies/', InstructorViewPolicies.as_view()),
     path('adminhome/', AdminHome.as_view()),

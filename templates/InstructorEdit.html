@@ -26,7 +26,7 @@
             <th>Office</th>
             <th>Office Hours</th>
             <th>Phone Number</th>
-            <th>Email address</th>
+            <th>Email Address</th>
         </tr>
         <tr>
             <td>{{ instructor.first_name }} {{ instructor.last_name }}</td>
@@ -43,7 +43,7 @@
 
     <table id="editCard">
         </td></tr>
-        <form action="/instructoredit{{ instructor.username }}/" method="post">
+        <form action="/instructoredit/" method="post">
     {% csrf_token %}
         <tr><td>Email: </td><td><input type="text" name="email"></td></tr>
         <tr><td>First Name: </td><td><input type="text" name="first_name"></td></tr>
