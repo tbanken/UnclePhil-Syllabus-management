@@ -13,7 +13,6 @@
             <th>Number</th>
             <th>Instructor</th>
             <th>Description</th>
-            <th>TAs</th>
             <th>Sections</th>
         </tr>
 
@@ -22,10 +21,8 @@
             <td>{{ c.term }}</td>
             <td>{{ c.name }}</td>
             <td>{{ c.dep_number }}</td>
-            <td>{{ c.instructor.username }}</td>
+            <td>{{ c.instructor.first_name }} {{ c.instructor.last_name }}</td>
             <td>{{ c.description }}</td>
-            <td>{% for t in tas %}
-                {% endfor %}</td>
             <td><form action="/taviewsections{{ c.name }}/">
                     <input type="submit" value="View" />
                 </form></td>
