@@ -13,7 +13,7 @@
         </tr>
         <tr>
             <td>{{ sec.type_of }}-{{ sec.number }}</td>
-            <td>{{ ta.username }}{{ instructor.username }}</td>
+            <td>{{ sec.ta.username }}{{ sec.instructor.username }}</td>
             <td>{{ sec.days }}</td>
             <td>{{ sec.time }}</td>
         </tr>
@@ -26,6 +26,7 @@
     {% csrf_token %}
 <table>
         <tr><td>Section Type: </td><td><select name="stype" id="stype">
+            <option value=""></option>
             <option value="LEC">Lecture</option>
             <option value="LAB">Lab</option>
             <option value="DIS">Discussion</option>

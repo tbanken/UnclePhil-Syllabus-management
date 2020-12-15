@@ -165,11 +165,11 @@ class EditCourse(View):
     def get(self, request, name):
         course = Course.objects.get(name=name)
         instructors = list(Instructor.objects.all())
-        tas = list(TA.objects.all())
-        return render(request, "Admin/EditCourse.html", {"course": course, "tas": tas, "instructors": instructors})
+        return render(request, "Admin/EditCourse.html", {"course": course, "instructors": instructors})
 
     def post(self, request, name):
         course = Course.objects.get(name=name)
+        instructors = list(Instructor.objects.all())
         if request.POST['name'] != '':
             course.name = request.POST['name']
         if request.POST['dep_number'] != '':
@@ -181,7 +181,7 @@ class EditCourse(View):
         if request.POST['instruct'] != '':
             course.instructor = Instructor.objects.get(username=request.POST['instruct'])
         course.save()
-        return render(request, "Admin/EditCourse.html", {"name": name})
+        return render(request, "Admin/EditCourse.html", {"course": course, "instructors": instructors})
 
 
 class CourseAddTA(View):
@@ -257,17 +257,11 @@ class EditSection(View):
         sec = Section.objects.get(number=number)
         for t in TA.objects.filter(course__in=Course.objects.filter(name=course.name)):
             users.append(t)
-        if sec.instructor is None:
-            ta = sec.ta
-            return render(request, "Admin/EditSection.html",
-                          {"number": number, "name": name, "users": users, "sec": sec, "ta": ta})
-        else:
-            instructor = sec.instructor
-            return render(request, "Admin/EditSection.html",
-                          {"number": number, "name": name, "users": users, "sec": sec, "instructor": instructor})
+        return render(request, "Admin/EditSection.html",
+                      {"number": number, "name": name, "users": users, "sec": sec})
 
     def post(self, request, number, name):
-        section = Section.objects.get(number=number)
+        section = Section.objects.get(number=number, course=Course.objects.get(name=name))
         if request.POST['stype'] != '':
             section.name = request.POST['stype']
         if request.POST['number'] != '':
@@ -278,14 +272,19 @@ class EditSection(View):
             section.time = request.POST['time']
 
         if request.POST['user'] != '':
-            if request.POST['stype'] == 'lecture':
+            if section.type_of == 'LEC':
                 section.instructor = Instructor.objects.get(username=request.POST['user'])
                 section.ta = None
             else:
-                section.TA = TA.objects.get(username=request.POST['user'])
+                section.ta = TA.objects.get(username=request.POST['user'])
                 section.instructor = None
         section.save()
-        return render(request, "Admin/EditSection.html", {"number": number, "name": name})
+        users = list()
+        users.append(Course.objects.get(name=name).instructor)
+        number = section.number
+        for t in TA.objects.filter(course__in=Course.objects.filter(name=Course.objects.get(name=name).name)):
+            users.append(t)
+        return render(request, "Admin/EditSection.html", {"number": number, "name": name, "sec": section, "users": users})
 
 
 class DeleteSection(View):
@@ -317,9 +316,6 @@ class TAViewCourses(View):
     def get(self, request):
         courses = Course.objects.filter(ta__username=request.session["user"])
         return render(request, "Courses.html", {"courses": courses})
-
-
-
 
 
 class InstructorHome(View):
