@@ -5,13 +5,12 @@ table{
 }
 th,tr{
     border: 2px solid black;
-    padding: 50px;
-    display:block;
-    margin:auto;
+    padding: 20px;
     align-content: center;
 }
 td{
     border: 5px solid black;
+    padding: 10px;
     text-align: center;
 
 }
