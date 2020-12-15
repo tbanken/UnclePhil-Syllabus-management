@@ -6,7 +6,7 @@ from django.db import models
 
 
 class MyUser(models.Model):
-    username = models.CharField(max_length=20)
+    username = models.CharField(max_length=20, unique=True)
     password = models.CharField(max_length=20)
     email = models.CharField(max_length=20)
 
@@ -21,7 +21,7 @@ class Admin(MyUser):
 
 
 class TA(MyUser):
-    first_name = models.CharField(max_length=20)
+    first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=20)
     office = models.CharField(max_length=20)
     phone = models.CharField(max_length=20)
@@ -34,7 +34,7 @@ class TA(MyUser):
 
 
 class Instructor(MyUser):
-    first_name = models.CharField(max_length=20)
+    first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=20)
     office = models.CharField(max_length=20)
     phone = models.CharField(max_length=20)
@@ -51,13 +51,14 @@ class SyllabusPolicy(models.Model):
 
 
 class Course(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=40)
     term = models.CharField(max_length=20)
     dep_number = models.CharField(max_length=20)
     description = models.CharField(max_length=400, default='')
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=True)
 
-    policies = models.ManyToManyField(SyllabusPolicy)
+    policies = models.ManyToManyField(SyllabusPolicy, null=True)
+
 
 
 class Section(models.Model):
