@@ -316,13 +316,10 @@ class TAEdit(View):
 class TAViewCourses(View):
     def get(self, request):
         courses = Course.objects.filter(ta__username=request.session["user"])
-        return render(request, "TA/TAViewCourses.html", {"courses": courses})
+        return render(request, "Courses.html", {"courses": courses})
 
 
-class TAViewSections(View):
-    def get(self, request, name):
-        sections = Section.objects.filter(course__name=name)
-        return render(request, "TA/TAViewSections.html", {"sections": sections})
+
 
 
 class InstructorHome(View):
@@ -352,13 +349,7 @@ class InstructorViewCourses(View):
         username = request.session["user"]
         instructor = Instructor.objects.get(username=username)
         courses = list(Course.objects.filter(instructor=instructor))
-        return render(request, "Instructor/InstructorViewCourses.html", {"courses": courses})
-
-
-class InstructorViewSections(View):
-    def get(self, request, name):
-        sections = Section.objects.filter(course__name=name)
-        return render(request, "Instructor/InstructorViewSections.html", {"sections": sections})
+        return render(request, "Courses.html", {"courses": courses})
 
 
 class InstructorViewTAs(View):
