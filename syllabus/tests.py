@@ -94,7 +94,7 @@ class TestModifyUsers(TestCase):
         with self.assertRaises(ObjectDoesNotExist):
             TA.objects.get(username='ta', password='ta')
 
-    # TODO test user editing as a TA and instructor
+     # TODO test user editing as a TA and instructor
 
 
 class TestModifyCourse(TestCase):

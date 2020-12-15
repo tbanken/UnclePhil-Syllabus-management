@@ -207,6 +207,14 @@ class DeleteCourse(View):
         return redirect("/course/")
 
 
+
+class ViewTAs(View):
+    def get(self, request, name):
+        course = Course.objects.get(name=name)
+        tas = list(TA.objects.filter(course=course))
+        return render(request, "Admin/ViewTAs.html", {"tas": tas, "course": course})
+
+
 class ViewSections(View):
     def get(self, request, name):
         course = Course.objects.get(name=name)
@@ -349,7 +357,14 @@ class InstructorViewCourses(View):
 class InstructorViewSections(View):
     def get(self, request, name):
         sections = Section.objects.filter(course__name=name)
-        return render(request, "Instructor/InstuctorViewSections.html", {"sections": sections})
+        return render(request, "Instructor/InstructorViewSections.html", {"sections": sections})
+
+
+class InstructorViewTAs(View):
+    def get(self, request, name):
+        course = Course.objects.get(name=name)
+        tas = list(TA.objects.filter(course=course))
+        return render(request, "Instructor/InstructorViewTAs.html", {"tas": tas, "course": course})
 
 
 class InstructorViewPolicies(View):
