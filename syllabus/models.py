@@ -26,7 +26,7 @@ class TA(MyUser):
     office = models.CharField(max_length=20)
     phone = models.CharField(max_length=20)
     office_hours = models.CharField(max_length=20)
-    course = models.ForeignKey('Course', on_delete=models.DO_NOTHING, null=True)
+    course = models.ForeignKey('Course', on_delete=models.SET_NULL, null=True)
 
     class Meta:
         verbose_name = "TA"
@@ -55,7 +55,7 @@ class Course(models.Model):
     term = models.CharField(max_length=20)
     dep_number = models.CharField(max_length=20)
     description = models.CharField(max_length=400, default='')
-    instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING, null=True)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=True)
 
     policies = models.ManyToManyField(SyllabusPolicy)
 
@@ -66,7 +66,7 @@ class Section(models.Model):
     days = models.CharField(max_length=20)
     time = models.CharField(max_length=20)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    ta = models.ForeignKey(TA, on_delete=models.DO_NOTHING, null=True)
-    instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING, null=True)
+    ta = models.ForeignKey(TA, on_delete=models.CASCADE, null=True)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=True)
 
 
