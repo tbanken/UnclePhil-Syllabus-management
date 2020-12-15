@@ -34,6 +34,7 @@
 <tr><td>Days(eg MWF): </td><td><input type="text" name="days"></td></tr>
         <tr><td>Time(eg 1:00-1:50 PM): </td><td><input type="text" name="time"></td></tr>
     <tr><td>Instructor/TA: </td><td><select name="user" id="user">
+    <option value=""></option>
         {% for u in users %}
             <option value={{ u.username }}>{{ u.username }}</option>
         {% endfor %}
