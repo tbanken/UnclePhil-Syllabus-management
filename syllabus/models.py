@@ -6,7 +6,7 @@ from django.db import models
 
 
 class MyUser(models.Model):
-    username = models.CharField(max_length=20)
+    username = models.CharField(max_length=20, unique=True)
     password = models.CharField(max_length=20)
     email = models.CharField(max_length=20)
 
@@ -21,12 +21,12 @@ class Admin(MyUser):
 
 
 class TA(MyUser):
-    first_name = models.CharField(max_length=20)
+    first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=20)
     office = models.CharField(max_length=20)
     phone = models.CharField(max_length=20)
     office_hours = models.CharField(max_length=20)
-    course = models.ForeignKey('Course', on_delete=models.DO_NOTHING, null=True)
+    course = models.ForeignKey('Course', on_delete=models.SET_NULL, null=True)
 
     class Meta:
         verbose_name = "TA"
@@ -34,7 +34,7 @@ class TA(MyUser):
 
 
 class Instructor(MyUser):
-    first_name = models.CharField(max_length=20)
+    first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=20)
     office = models.CharField(max_length=20)
     phone = models.CharField(max_length=20)
@@ -45,15 +45,29 @@ class Instructor(MyUser):
         verbose_name_plural = "Instructors"
 
 
+class SyllabusPolicy(models.Model):
+    policy_text = models.CharField(max_length=400)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=True)
+
+
 class Course(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=40)
     term = models.CharField(max_length=20)
     dep_number = models.CharField(max_length=20)
-    instructor = models.ForeignKey(Instructor, on_delete=models.DO_NOTHING)
+    description = models.CharField(max_length=400, default='')
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=True)
+
+    policies = models.ManyToManyField(SyllabusPolicy)
+
 
 
 class Section(models.Model):
     type_of = models.CharField(max_length=20)
     number = models.IntegerField()
+    days = models.CharField(max_length=20)
+    time = models.CharField(max_length=20)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    user = models.OneToOneField(MyUser, on_delete=models.DO_NOTHING)
+    ta = models.ForeignKey(TA, on_delete=models.CASCADE, null=True)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, null=True)
+
+

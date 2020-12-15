@@ -2,21 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create User</title>
+    <title>TA Edit</title>
 </head>
 <body>
-<h3>When creating a user, please enter at least the username, password and email</h3>
-<form action="/createuser/" method="post">
+
+<table>
+        <tr>
+            <th>Name</th>
+            <th>Office</th>
+            <th>Office Hours</th>
+            <th>Phone Number</th>
+            <th>Email address</th>
+        </tr>
+        <tr>
+            <td>{{ ta.first_name }} {{ ta.last_name }}</td>
+            <td>{{ ta.office }}</td>
+            <td>{{ ta.office_hours }}</td>
+            <td>{{ ta.phone }}</td>
+            <td>{{ ta.email }}</td>
+        </tr>
+    </table>
+
+
+<form action="/taedit/" method="post">
     {% csrf_token %}
 <table>
-        <tr><td>Type: </td><td>
-
-<select name="utype" id="utype">
-  <option value="ta">TA</option>
-  <option value="instructor">Instructor</option>
-</select></td></tr>
-        <tr><td>Username: </td><td><input type="text" name="name"></td></tr>
-        <tr><td>Password: </td><td><input type="text" name="password"></td></tr>
+        </td></tr>
         <tr><td>Email: </td><td><input type="text" name="email"></td></tr>
         <tr><td>First Name: </td><td><input type="text" name="first_name"></td></tr>
         <tr><td>Last Name: </td><td><input type="text" name="last_name"></td></tr>
@@ -27,8 +38,10 @@
     <input type="submit">
 </form>
 
-<form action="/user/">
-        <input type="submit" value="Back"/>
-    </form>
+<form action="/tahome/">
+    <input type="submit" value="Back" />
+</form>
+
+
 </body>
 </html>

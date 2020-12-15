@@ -7,5 +7,17 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\tedba\PycharmProjects\UnclePhilSyllabus\db.sqlite3</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="db [2]" uuid="57472776-29eb-421f-9d36-c85147623dbe">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\aniru\PycharmProjects\UnclePhil-Syllabus-management\db.sqlite3</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="db [3]" uuid="c001d29d-9b46-4d56-85dd-9e5fa676020f">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\tedba\PycharmProjects\UnclePhil-Syllabus-management\db.sqlite3</jdbc-url>
+    </data-source>
   </component>
 </project>

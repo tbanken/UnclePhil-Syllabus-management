@@ -5,13 +5,14 @@
     <title>Admin Course Page</title>
 </head>
 <body>
-<h2>To add a TA to a course, go to Edit</h2>
+<h2>Go to the TA tab to add a TA to a course</h2>
     <table>
         <tr>
             <th>Term</th>
             <th>Course</th>
             <th>Number</th>
             <th>Instructor</th>
+            <th>Description</th>
             <th>TAs</th>
             <th>Sections</th>
             <th></th>
@@ -24,8 +25,11 @@
             <td>{{ c.name }}</td>
             <td>{{ c.dep_number }}</td>
             <td>{{ c.instructor.username }}</td>
-            <td>
-            </td>
+            <td>{{ c.description }}</td>
+
+            <td><form action="/viewtas{{ c.name }}/">
+                    <input type="submit" value="View" />
+                </form></td>
             <td><form action="/viewsections{{ c.name }}/">
                     <input type="submit" value="View" />
                 </form></td>

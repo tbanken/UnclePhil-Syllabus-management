@@ -25,9 +25,13 @@ urlpatterns = [
     path('', Login.as_view()),
     path('logout/', Logout.as_view()),
     path('tahome/', TAHome.as_view()),
-    path('taedit<str:username>/', TAEdit.as_view()),
+    path('taedit/', TAEdit.as_view()),
+    path('taviewcourses/', TAViewCourses.as_view()),
     path('instructorhome/', InstructorHome.as_view()),
-    path('instructoredit<str:username>/', InstructorEditInfo.as_view()),
+    path('instructoredit/', InstructorEditInfo.as_view()),
+    path('instructorviewcourses/', InstructorViewCourses.as_view()),
+    path('instructorviewpolicies/', InstructorViewPolicies.as_view()),
+    path('instructorviewtas<str:name>/', InstructorViewTAs.as_view()),
     path('adminhome/', AdminHome.as_view()),
     path('user/', AdminViewUsers.as_view()),
     path('edituser<str:username>-<str:utype>/', EditUser.as_view()),
@@ -38,11 +42,13 @@ urlpatterns = [
     path('editcourse<str:name>/', EditCourse.as_view()),
     path('deletecourse<str:name>/', DeleteCourse.as_view()),
     path('viewsections<str:name>/', ViewSections.as_view()),
+    path('viewtas<str:name>/', ViewTAs.as_view()),
     path('createsection<str:name>/', CreateSection.as_view()),
     path('editsection<str:number>-<str:name>/', EditSection.as_view()),
     path('deletesection<str:number>-<str:name>/', DeleteSection.as_view()),
     path('courseaddta<str:name>/', CourseAddTA.as_view()),
-    path('courses/', Courses.as_view())
+    path('courses/', Courses.as_view()),
+    path('courses/<str:term>/<str:dep_number>/', ViewCourse.as_view())
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

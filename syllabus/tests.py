@@ -13,27 +13,33 @@ class TestLogin(TestCase):
 
     def test_valid_admin_login(self):
         response = self.client.post('/', {'name': 'admin', 'password': 'admin'})
-        self.assertEqual(response.url, '/adminhome/')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/adminhome/')
 
     def test_invalid_admin_login(self):
         response = self.client.post('/', {'name': 'admin', 'password': 'password'})
-        self.assertEqual(response.url, '/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.request['PATH_INFO'], '/')
 
     def test_valid_ta_login(self):
         response = self.client.post('/', {'name': 'ta', 'password': 'ta'})
-        self.assertEqual(response.url, '/tahome/')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/tahome/')
 
     def test_invalid_ta_login(self):
         response = self.client.post('/', {'name': 'ta', 'password': 'password'})
-        self.assertEqual(response.url, '/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.request['PATH_INFO'], '/')
 
     def test_valid_instructor_login(self):
         response = self.client.post('/', {'name': 'instructor', 'password': 'instructor'})
-        self.assertEqual(response.url, '/instructorhome/')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/instructorhome/')
 
     def test_invalid_instructor_login(self):
         response = self.client.post('/', {'name': 'instructor', 'password': 'password'})
-        self.assertEqual(response.url, '/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.request['PATH_INFO'], '/')
 
 
 class TestModifyUsers(TestCase):
@@ -51,64 +57,152 @@ class TestModifyUsers(TestCase):
 
     def test_create_user_no_name(self):
         credentials = {'utype': 'ta', 'name': '', 'password': 'password', 'email': 'email'}
-        response = self.client.post('/createuser/', credentials)
-        self.assertRaises(ObjectDoesNotExist, TA.objects.get(username='', password='password'))
+        self.client.post('/createuser/', credentials)
+        with self.assertRaises(ObjectDoesNotExist):
+            TA.objects.get(username='', password='password')
 
     def test_create_user_no_password(self):
         credentials = {'utype': 'ta', 'name': 'name', 'password': '', 'email': 'email'}
-        response = self.client.post('/createuser/', credentials)
-        self.assertRaises(ObjectDoesNotExist, TA.objects.get(username='name', password=''))
+        self.client.post('/createuser/', credentials)
+        with self.assertRaises(ObjectDoesNotExist):
+            TA.objects.get(username='name', password='')
 
     def test_create_user_no_email(self):
         credentials = {'utype': 'instructor', 'name': 'name', 'password': 'password', 'email': ''}
-        response = self.client.post('/createuser/', credentials)
-        self.assertRaises(ObjectDoesNotExist, Instructor.objects.get(username='name', password='password'))
+        self.client.post('/createuser/', credentials)
+        with self.assertRaises(ObjectDoesNotExist):
+            Instructor.objects.get(username='name', password='password')
 
     def test_create_user_TA(self):
-        response = self.client.post('/createuser/', self.valid_credentials_TA)
+        self.client.post('/createuser/', self.valid_credentials_TA)
         self.assertTrue(
             TA.objects.get(username=self.valid_credentials_TA['name'], password=self.valid_credentials_TA['password']))
 
     def test_create_user_Instructor(self):
-        response = self.client.post('/createuser/', self.valid_credentials_Instructor)
+        self.client.post('/createuser/', self.valid_credentials_Instructor)
         self.assertTrue(Instructor.objects.get(username=self.valid_credentials_Instructor['name'],
                                                password=self.valid_credentials_Instructor['password']))
 
-    # def test_edit_user_A(self):
-    #     response = self.client.post('/edituser/',utype='ta',username='ta', {'first_name':'Tony','last_name':'Stark'})
-    #     t = TA.objects.get(username='ta')
-    #     self.assertEqual(t.first_name, "Tony")
+    def test_edit_user_A(self):
+        self.client.post('/edituserta-ta/', {'password': 'ta', 'email': 'ta@uwm.edu',
+                                             'first_name': 'Tony', 'last_name': 'Stark', 'office': '', 'phone': '',
+                                             'office_hours': ''})
+        t = TA.objects.get(username='ta')
+        self.assertEqual(t.first_name, "Tony")
 
     def test_delete_user_B(self):
         self.assertTrue(TA.objects.get(username='ta', password='ta'))
-        response = self.client.post('/deleteuser/', username='ta')
-        self.assertRaises(ObjectDoesNotExist, TA.objects.get(username='ta', password='ta'))
+        self.client.post('/deleteuserta/')
+        with self.assertRaises(ObjectDoesNotExist):
+            TA.objects.get(username='ta', password='ta')
+
+    # TODO test user editing as a TA and instructor
 
 
 class TestModifyCourse(TestCase):
     def setUp(self):
         self.client = Client()
-        self.course_B = Course.objects.create(name='MATH', number='413')
+        self.course_B = Course.objects.create(name='MATH', dep_number='413', term='Fall 2020', instructor=None)
+        self.section_1 = Section.objects.create(type_of='LAB', number='567', days='M', time='1-2:30pm',
+                                                course=self.course_B)
 
     def test_create_course_A(self):
-        self.assertRaises(ObjectDoesNotExist, Course.objects.get(name='CS', number='361'))
-        response = self.client.post('/createcourse/', {'name': 'CS', 'dep_number': '361'})
-        self.assertTrue(Course.objects.get(name='CS', number='361'))
+        self.client.post('/createcourse/', {'name': 'Intro to Software eng', 'dep_number': 'CS361', 'term': 'Fall 2020',
+                                            'instruct': '', 'desc': 'desc'})
+        self.assertTrue(Course.objects.get(dep_number='CS361'))
+
+    def test_create_course_A_fail(self):
+        response = self.client.post('/createcourse/', {'name': 'Intro to Software Eng', 'dep_number': '', 'term': '',
+                                                       'instruct': '', 'desc': ''})
+        self.assertEqual(response.status_code, 200)
+        with self.assertRaises(ObjectDoesNotExist):
+            Course.objects.get(name='Intro to Software Eng')
 
     def test_edit_course_B_no_name(self):
-        response = self.client.post('/editcourseMATH/', {'name': 'MATH', 'dep_number': '415'})
-        self.assertEqual(Course.objects.get(name='MATH').dep_number, 413)
+        self.client.post('/editcourseMATH/', {'name': '', 'dep_number': '413', 'term': '',
+                                              'instruct': '', 'desc': ''})
+        self.assertEqual(Course.objects.get(name='MATH').dep_number, '413')
 
     def test_edit_course_B_no_number(self):
-        response = self.client.post('/editcourse/', {'name': 'MATH', 'dep_number': ''})
-        self.assertEqual(Course.objects.get(name='MATH').dep_number, 413)
+        self.client.post('/editcourseMATH/', {'name': 'MATH', 'dep_number': '', 'term': '',
+                                              'instruct': '', 'desc': ''})
+        self.assertEqual(Course.objects.get(name='MATH').dep_number, '413')
 
     def test_edit_course_B(self):
-        response = self.client.post('/editcourse/', {'name': 'MATH', 'dep_number': '415'})
-        self.assertEqual(Course.objects.get(name='MATH').dep_number, 415)
+        self.client.post('/editcourseMATH/', {'name': 'MA', 'dep_number': '413', 'term': '',
+                                              'instruct': '', 'desc': ''})
+        self.assertEqual(Course.objects.get(name='MA').dep_number, '413')
+
+    def test_create_section(self):
+        self.client.post('/createsectionMATH/',
+                         {'stype': 'LEC', 'number': '345', 'days': 'MW', 'time': '1-1:30pm', 'user': ''})
+        self.assertTrue(Section.objects.get(course=self.course_B, number='345'))
+
+    def test_create_section_fail(self):
+        response = self.client.post('/createsectionMATH/',
+                                    {'stype': '', 'number': '345', 'days': 'MW', 'time': '1-1:30pm', 'user': ''})
+        self.assertEqual(response.status_code, 200)
+        with self.assertRaises(ObjectDoesNotExist):
+            Section.objects.get(course=self.course_B, number='345')
+
+    def test_edit_section(self):
+        self.client.post('/editsection567-MATH/',
+                         {'stype': 'LEC', 'number': '345', 'days': 'MW', 'time': '1-1:30pm', 'user': ''})
+        self.assertTrue(Section.objects.get(course=self.course_B, number='345'))
 
 
 class TestAssignUser(TestCase):
     def setUp(self):
+        self.client = Client()
+        self.user_ta = TA.objects.create(username='ta', password='ta', email='ta@uwm.edu')
+        self.user_ta2 = TA.objects.create(username='ta2', password='ta2', email='ta@uwm.edu')
         self.user_instructor = Instructor.objects.create(username='instructor', password='instructor',
                                                          email='instructor@uwm.edu')
+
+        self.course_B = Course.objects.create(name='MATH', dep_number='413', term='Fall 2020')
+
+    def test_assign_instructor(self):
+        response = self.client.post('/editcourseMATH/', {'name': '', 'dep_number': '', 'term': '', 'instruct':
+                                    'instructor', 'desc': ''})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.user_instructor, self.course_B.instructor)
+
+    def test_assign_instructor2(self):
+        pass
+
+    def test_assign_ta(self):
+        pass
+
+    def test_assign_ta2(self):
+        pass
+
+    def test_assign_another_ta(self):
+        pass
+
+    def test_sec_assign_instructor(self):
+        pass
+
+    def test_sec_assign_ta(self):
+        pass
+
+
+class TestModifySyllabusComponent(TestCase):
+    pass
+
+
+class TestViewCourse(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user_ta = TA.objects.create(username='ta', password='ta', email='ta@uwm.edu')
+        self.user_ta2 = TA.objects.create(username='ta2', password='ta2', email='ta@uwm.edu')
+        self.user_instructor = Instructor.objects.create(username='instructor', password='instructor',
+                                                         email='instructor@uwm.edu')
+
+        self.course_B = Course.objects.create(name='MATH', dep_number='413', term='Fall 2020',
+                                              instructor=self.user_instructor)
+        self.course_B.ta_set.add(self.user_ta)
+        self.course_B.ta_set.add(self.user_ta2)
+
+    def testDisplay(self):
+        response = self.client.get('/courses/Fall%2020/413/')
+        self.assertEqual(response.status_code, 200)
