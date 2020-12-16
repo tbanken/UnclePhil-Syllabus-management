@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Policy</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/InstructorHomeStyle.css' %}"/>
+</head>
+<body>
+    <div class="header">
+        <h1> Assign Policy </h1>
+    </div>
+    <div class="card">
+    <table id="InstructorInfo">
+        <tr>
+            <th>Course</th>
+            <th>Action</th>
+        </tr>
+        {% for course in assignable_courses %}
+            <tr>
+                <td> {{ course.dep_number }} </td>
+                <td>
+                    <form action="/instructorassignpolicy{{ policy.pk }}/" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="course_pk" value="{{ course.pk }}">
+                        <input type="submit" value="Assign">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>

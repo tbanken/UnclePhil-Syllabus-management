@@ -388,3 +388,41 @@ class ViewCourse(View):
         policies = list(course.policies.all())
         return render(request, "ViewCourse.html", {"course": course, "sections": sections, "instructor": instructor,
                                                    "tas": tas, "policies": policies})
+
+
+
+class InstructorAssignPolicy(View):
+    def get(self, request, policy_primary_key):
+        policy = SyllabusPolicy.objects.get(pk=policy_primary_key)
+        assignable_courses = Course.objects\
+            .filter(instructor=Instructor.objects.get(username=request.session["user"]))\
+            .exclude(policies__in=[policy])
+        return render(request, "InstructorAssignPolicy.html", {
+            "policy": policy,
+            "assignable_courses": assignable_courses
+        })
+
+    def post(self, request, policy_primary_key):
+        course = Course.objects.get(pk=request.POST['course_pk'])
+        policy = SyllabusPolicy.objects.get(pk=policy_primary_key)
+        course.policies.add(policy)
+        return redirect("/instructorviewpolicies/")
+
+
+class InstructorRemovePolicy(View):
+    def get(self, request, policy_primary_key):
+        policy = SyllabusPolicy.objects.get(pk=policy_primary_key)
+        removable_courses = Course.objects\
+            .filter(instructor=Instructor.objects.get(username=request.session["user"])) \
+            .filter(policies__in=[policy])
+        print(removable_courses)
+        return render(request, "InstructorRemovePolicy.html", {
+            "policy": policy,
+            "removable_courses": removable_courses
+        })
+
+    def post(self, request, policy_primary_key):
+        course = Course.objects.get(pk=request.POST['course_pk'])
+        policy = SyllabusPolicy.objects.get(pk=policy_primary_key)
+        course.policies.remove(policy)
+        return redirect("/instructorviewpolicies/")
