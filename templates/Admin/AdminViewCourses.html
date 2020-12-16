@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Course Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/AdminViewsStyle.css'%}" />
 </head>
 <body>
 <h2>Go to the TA tab to add a TA to a course</h2>
@@ -15,8 +17,8 @@
             <th>Description</th>
             <th>TAs</th>
             <th>Sections</th>
-            <th></th>
-            <th></th>
+            <th>Edit Course</th>
+            <th>Delete Course</th>
         </tr>
 
         {% for c in courses %}
@@ -27,23 +29,23 @@
             <td>{{ c.instructor.username }}</td>
             <td>{{ c.description }}</td>
 
-            <td><form action="/viewtas{{ c.name }}/">
+            <th><form action="/viewtas{{ c.name }}/">
                     <input type="submit" value="View" />
-                </form></td>
-            <td><form action="/viewsections{{ c.name }}/">
+                </form></th>
+            <th><form action="/viewsections{{ c.name }}/">
                     <input type="submit" value="View" />
-                </form></td>
-            <td>
+                </form></th>
+            <th>
                 <form action="/editcourse{{ c.name }}/">
                     <input type="submit" value="Edit" />
                 </form>
-            </td>
-            <td>
+            </th>
+            <th>
                 <form action="/deletecourse{{ c.name }}/" method="post">
                     {% csrf_token %}
                     <input type="submit" value="Delete" />
                 </form>
-            </td>
+            </th>
         </tr>
         {% endfor %}
     </table>
