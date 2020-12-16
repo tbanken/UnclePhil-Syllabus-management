@@ -31,6 +31,8 @@ urlpatterns = [
     path('instructoredit/', InstructorEditInfo.as_view()),
     path('instructorviewcourses/', InstructorViewCourses.as_view()),
     path('instructorviewpolicies/', InstructorViewPolicies.as_view()),
+    path('instructorassignpolicy<str:policy_primary_key>/', InstructorAssignPolicy.as_view()),
+    path('instructorremovepolicy<str:policy_primary_key>/', InstructorRemovePolicy.as_view()),
     path('instructorviewtas<str:name>/', InstructorViewTAs.as_view()),
     path('adminhome/', AdminHome.as_view()),
     path('user/', AdminViewUsers.as_view()),
