@@ -8,9 +8,25 @@
 
 </head>
 <body>
-<h2>Hello TA {{ ta.username }}!</h2>
+<div class="header">
+    <h1>Hello TA {{ ta.username }}!</h1>
+</div>
 
-<table>
+    <ul class="topnav">
+        <form action="/taedit/">
+            <input type="submit" value="Edit information" />
+        </form>
+
+        <form action="/taviewcourses/">
+            <input type="submit" value="Courses" />
+        </form>
+
+        <form action="/logout/">
+            <input style="float:right" type="submit" value="Logout" />
+        </form>
+    </ul>
+<div class="card">
+<table id="TAInfo">
         <tr>
             <th>Name</th>
             <th>Office</th>
@@ -26,20 +42,7 @@
             <td>{{ ta.email }}</td>
         </tr>
     </table>
-
-
-
-<form action="/taedit/">
-    <input type="submit" value="Edit information" />
-</form>
-
-<form action="/taviewcourses/">
-    <input type="submit" value="Courses" />
-</form>
-
-<form action="/logout/">
-    <input type="submit" value="Logout" />
-</form>
+</div>
 
 
 </body>
