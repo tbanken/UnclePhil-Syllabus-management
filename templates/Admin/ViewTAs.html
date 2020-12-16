@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/courseaddta{{ course.name }}/">
+        <input type="submit" value="Add TA"/>
+    </form>
+<table>
+        <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Office</th>
+            <th>Phone</th>
+            <th>Office Hours</th>
+        </tr>
+        {% for t in tas %}
+        <tr>
+            <td>{{ t.username }}</td>
+            <td>{{ t.password }}</td>
+            <td>{{ t.email }}</td>
+            <td>{{ t.first_name }} {{ user.last_name }}</td>
+            <td>{{ t.office }}</td>
+            <td>{{ t.phone }}</td>
+            <td>{{ t.office_hours }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+<form action="/course/">
+        <input type="submit" value="Back"/>
+    </form>
+
+<form action="/logout/">
+    <input type="submit" value="Logout" />
+</form>
+</body>
+</html>

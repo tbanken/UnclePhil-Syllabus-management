@@ -12,6 +12,8 @@
             <th></th>
             <th>Section</th>
             <th>Instructor/TA</th>
+            <th>Days</th>
+            <th>Time</th>
             <th></th>
         </tr>
 
@@ -20,7 +22,9 @@
             <td></td>
             <td></td>
             <td>{{ s.type_of }}-{{ s.number }}</td>
-            <td>{{ s.user.username }}</td>
+            <td>{{ s.ta.username }}{{ s.instructor.username }}</td>
+            <td>{{ s.days }}</td>
+            <td>{{ s.time }}</td>
             <td>
                 <form action="/editsection{{ s.number }}-{{ name }}/">
                     <input type="submit" value="Edit" />

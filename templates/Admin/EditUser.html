@@ -2,19 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create User</title>
+    <title>Edit User</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/AdminEditStyle.css'%}" />
 </head>
 <body>
-<h3>When creating a user, please enter at least the username, password and email</h3>
-<form action="/createuser/" method="post">
+<h2>Edit User {{ user.username }}</h2>
+
+<table>
+        <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Office</th>
+            <th>Phone</th>
+            <th>Office Hours</th>
+        </tr>
+
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.password }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td>{{ user.office }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.office_hours }}</td>
+        </tr>
+    </table>
+
+    <br>
+
+
+
+
+
+<form action="/edituser{{ user.username }}-{{ utype }}/" method="post">
     {% csrf_token %}
 <table>
-        <tr><td>Type: </td><td>
-
-<select name="utype" id="utype">
-  <option value="ta">TA</option>
-  <option value="instructor">Instructor</option>
-</select></td></tr>
+        </td></tr>
         <tr><td>Username: </td><td><input type="text" name="name"></td></tr>
         <tr><td>Password: </td><td><input type="text" name="password"></td></tr>
         <tr><td>Email: </td><td><input type="text" name="email"></td></tr>

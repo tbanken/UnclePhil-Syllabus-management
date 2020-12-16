@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Instructor View Courses</title>
+</head>
+<body>
+
+<table>
+        <tr>
+            <th>Term</th>
+            <th>Course</th>
+            <th>Number</th>
+            <th>Description</th>
+            <th>TAs</th>
+            <th>Sections</th>
+        </tr>
+
+        {% for c in courses %}
+        <tr>
+            <td>{{ c.term }}</td>
+            <td>{{ c.name }}</td>
+            <td>{{ c.dep_number }}</td>
+            <td>{{ c.description }}</td>
+
+            <td><form action="/instructorviewtas{{ c.name }}/">
+                    <input type="submit" value="View" />
+                </form></td>
+            <td><form action="/instructorviewsections{{ c.name }}/">
+                    <input type="submit" value="View" />
+                </form></td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+<form action="/instructorhome/">
+    <input type="submit" value="Back" />
+</form>
+
+</body>
+</html>

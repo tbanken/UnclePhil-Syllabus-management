@@ -7,5 +7,29 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\tedba\PycharmProjects\UnclePhilSyllabus\db.sqlite3</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="db [2]" uuid="57472776-29eb-421f-9d36-c85147623dbe">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\aniru\PycharmProjects\UnclePhil-Syllabus-management\db.sqlite3</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="db [3]" uuid="c001d29d-9b46-4d56-85dd-9e5fa676020f">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\tedba\PycharmProjects\UnclePhil-Syllabus-management\db.sqlite3</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="db [4]" uuid="ade8eef9-9261-4a4b-b684-a4c4fb24e168">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\lemus\Documents\Python\361Final\db.sqlite3</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="SQLite - identifier.sqlite" uuid="815c8cd1-2b13-4517-9165-61d939a85949">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:identifier.sqlite</jdbc-url>
+    </data-source>
   </component>
 </project>

@@ -16,6 +16,8 @@ body {
     margin: auto;
 }
 .header {
+    margin-left: auto;
+    margin-right: auto;
     padding: 30px;
     text-align: center;
     background: white;

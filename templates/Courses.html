@@ -9,7 +9,7 @@
 <table>
         {% for c in courses %}
         <tr>
-            <td><form action="">
+            <td><form action="/courses/{{ c.term }}/{{ c.dep_number }}">
                     <input type="submit" value="{{ c.term }} {{ c.dep_number }} {{ c.name }} {{ c.instructor.username }}" />
                 </form></td>
         </tr>

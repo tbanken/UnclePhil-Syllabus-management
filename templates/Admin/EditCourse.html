@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Course</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/AdminEditStyle.css'%}" />
 </head>
 <body>
 <h2>Edit {{ course.name }}</h2>
 
 <table>
         <tr>
-            <th>Name</th>
-            <th>Number</th>
             <th>Term</th>
-            <th>Name</th>
+            <th>Number</th>
+            <th>Course</th>
             <th>Instructor</th>
-            <th>TAs</th>
+            <th>Description</th>
         </tr>
 
         <tr>
-            <td>{{ course.name }}</td>
+            <td>{{ course.term }}</td>
             <td>{{ course.dep_number }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ course.name }}</td>
+            <td>{{ course.instructor.username }}</td>
+            <td>{{ course.description }}</td>
         </tr>
     </table>
 
@@ -34,8 +34,8 @@
 <table>
         </td></tr>
         <tr><td>Name: </td><td><input type="text" name="name"></td></tr>
-        <tr><td>Department and Number("DP-123"): </td><td><input type="text" name="number"></td></tr>
-        <tr><td>Term: </td><td><input type="text" name="term"></td></tr>
+        <tr><td>Department and Number(eg CS 123 or MATH 205): </td><td><input type="text" name="dep_number"></td></tr>
+        <tr><td>Term(eg Fall 2020): </td><td><input type="text" name="term"></td></tr>
         <tr><td>Description: </td><td><input type="text" name="desc"></td></tr>
     <tr><td>Instructor: </td><td><select name="instruct" id="instruct">
     {% for i in instructors %}
@@ -46,12 +46,10 @@
     <input type="submit">
 </form>
 
-<form action="/courseaddta{{ course.name }}/">
-        <input type="submit" value="Add TA"/>
-    </form>
+
 
 <form action="/course/">
         <input type="submit" value="Back"/>
-    </form>
+</form>
 </body>
 </html>
