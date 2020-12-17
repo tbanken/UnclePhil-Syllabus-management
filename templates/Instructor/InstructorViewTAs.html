@@ -2,10 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>TAs</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/InstructorViewTAsStyle.css' %}"/>
 </head>
 <body>
-    <table>
+
+<div class="header">
+    <h1>The TAs</h1>
+</div>
+    <ul class="topnav">
+
+        <form action="/instructorviewcourses/">
+            <input type="submit" value="Back"/>
+        </form>
+
+        <form action="/logout/">
+            <input style="float:right" type="submit" value="Logout" />
+        </form>
+    </ul>
+<div class="card">
+    <table id="TAs">
         <tr>
             <th>Username</th>
             <th>Password</th>
@@ -27,13 +44,7 @@
         </tr>
         {% endfor %}
     </table>
+</div>
 
-<form action="/instructorviewcourses/">
-        <input type="submit" value="Back"/>
-    </form>
-
-<form action="/logout/">
-    <input type="submit" value="Logout" />
-</form>
 </body>
 </html>

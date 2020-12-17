@@ -5,6 +5,7 @@
     <title>Instructor Edit</title>
     {% load static %}
     <link rel="stylesheet" href="{% static '/InstructorEditStyle.css'%}" />
+
 </head>
 <body>
 <div class="header"><h1>Edit Information</h1></div>
@@ -18,7 +19,7 @@
         </form>
     </ul>
 <div id="editCard">
-    <table id="InstructorList" >
+    <table id="InstructorList">
         <tr>
             <th>Name</th>
             <th>Office</th>
@@ -38,24 +39,19 @@
 <br/>
 
 <div>
-
-
     <table id="editCard">
         </td></tr>
         <form action="/instructoredit/" method="post">
-    {% csrf_token %}
-        <tr><td>Email: </td><td><input type="text" name="email"></td></tr>
-        <tr><td>First Name: </td><td><input type="text" name="first_name"></td></tr>
-        <tr><td>Last Name: </td><td><input type="text" name="last_name"></td></tr>
-        <tr><td>Office: </td><td><input type="text" name="office"></td></tr>
-        <tr><td>Phone: </td><td><input type="text" name="phone"></td></tr>
-        <tr><td>Office Hours: </td><td><input type="text" name="office_hours"></td></tr>
-
+            {% csrf_token %}
+            <tr><td>Email: </td><td><input type="text" name="email"></td></tr>
+            <tr><td>First Name: </td><td><input type="text" name="first_name"></td></tr>
+            <tr><td>Last Name: </td><td><input type="text" name="last_name"></td></tr>
+            <tr><td>Office: </td><td><input type="text" name="office"></td></tr>
+            <tr><td>Phone: </td><td><input type="text" name="phone"></td></tr>
+            <tr><td>Office Hours: </td><td><input type="text" name="office_hours"></td></tr>
             <tr><td><input class="button" type="submit"></td></tr>
         </form>
-
     </table>
-
 </div>
 
 </body>

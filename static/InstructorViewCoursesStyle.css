@@ -3,7 +3,7 @@
 }
 
 body {
-  font-family: Arial;
+    font-family: Arial, serif;
   padding: 10px;
   background: #f1f1f1;
 
@@ -14,6 +14,7 @@ body {
   padding: 20px;
   margin-top: 20px;
     border-radius: 5px;
+
 }
 /* Header/Blog Title */
 .header {
@@ -63,7 +64,7 @@ li {
   float: left;
 }
 
-input {
+.navButton {
     float: left;
     display: block;
     color: white;
@@ -109,5 +110,19 @@ input:hover:not(.active) {
     border-radius: 5px;
     text-align: center;
     margin: 10px;
+}
 
+#tableButton {
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-size: auto;
+    background-color: gray;
+    cursor: pointer;
+}
+
+#tableButton:hover:not(.active) {
+  background-color: #111;
 }

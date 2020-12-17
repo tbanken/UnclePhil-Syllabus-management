@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <title>Policies</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static '/InstructorHomeStyle.css' %}"/>
+    <link rel="stylesheet" href="{% static '/InstructorViewPoliciesStyle.css' %}"/>
 </head>
 <body>
 <div class="header">
     <h1> {{ instructor.username }}'s Policies </h1>
 </div>
+
+<ul class="topnav">
+    <form action="/instructorhome/">
+        <input class="navButton" type="submit" value="Back" />
+    </form>
+
+    <form action="/logout/">
+        <input class="navButton" style="float:right" type="submit" value="Logout" />
+    </form>
+</ul>
+
 <div class="card">
-    <table id="InstructorInfo">
+    <table id="Policies">
         <tr>
             <th>Policy Text</th>
             <th>Actions</th>
@@ -27,17 +38,17 @@
 </div>
 <br>
 
-
-<form action="/instructorviewpolicies/" method="post">
-    {% csrf_token %}
-    <textarea name="new_policy_text" rows="10" cols="50" placeholder="Type your new policy here..."></textarea>
-    <br><br>
-    <input type="submit">
-</form>
-<form action="/instructorhome/">
-            <input class="button" type="submit" value="Back"/>
-        </form>
-
+<div id="editCard">
+    <form action="/instructorviewpolicies/" method="post">
+        {% csrf_token %}
+        <textarea name="new_policy_text" rows="10" cols="50" placeholder="Type your new policy here..."></textarea>
+        <br/>
+        <br/>
+        <input type="submit">
+        <br/>
+        <br/>
+    </form>
+</div>
 
 </body>
 </html>

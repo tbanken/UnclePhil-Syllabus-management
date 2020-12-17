@@ -3,9 +3,10 @@
 }
 
 body {
-  font-family: Arial;
+    font-family: Arial, serif;
   padding: 10px;
   background: #f1f1f1;
+
 }
 /* Add a card effect for articles */
 .card {
@@ -62,7 +63,7 @@ li {
   float: left;
 }
 
-input.button {
+input {
     float: left;
     display: block;
     color: white;
@@ -75,35 +76,27 @@ input.button {
     cursor: pointer;
 }
 
-input.button:hover:not(.active) {
+input:hover:not(.active) {
   background-color: #111;
 }
 
-
-#InstructorList {
+#Policies {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
-       background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    margin: 10px;
-    text-align: center;
 }
 
-#InstructorList td, #InstructorList th{
+#Policies td, #TAs th{
   border: 1px solid #ddd;
   padding: 8px;
-    text-align: center;
 }
-#InstructorList tr:nth-child(even){background-color: #f2f2f2;}
 
-#InstructorList tr:hover {background-color: #ddd;}
+#Policies tr:nth-child(even){background-color: #f2f2f2;}
 
-#InstructorList th {
+
+#Policies th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: center;
   background-color: gray;
   color: white;
 }
@@ -111,5 +104,7 @@ input.button:hover:not(.active) {
    background-color: white;
     padding: 20px;
     border-radius: 5px;
+    text-align: center;
     margin: 10px;
+
 }
