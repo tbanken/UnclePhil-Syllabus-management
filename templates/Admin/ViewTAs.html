@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/AdminEditStyle.css'%}" />
 </head>
 <body>
-<form action="/courseaddta{{ course.name }}/">
-        <input type="submit" value="Add TA"/>
-    </form>
+<div class="header">
+    <h1>View TAs in Course</h1>
+</div>
 <table>
         <tr>
             <th>Username</th>
@@ -30,13 +32,20 @@
         </tr>
         {% endfor %}
     </table>
-
-<form action="/course/">
-        <input type="submit" value="Back"/>
-    </form>
-
-<form action="/logout/">
-    <input type="submit" value="Logout" />
-</form>
+<ul>
+    <li>
+        <form action="/courseaddta{{ course.name }}/">
+            <input type="submit" value="Add TA"/>
+        </form>
+    </li><li>
+        <form action="/course/">
+            <input type="submit" value="Back"/>
+        </form>
+    </li><li>
+        <form action="/logout/">
+            <input type="submit" value="Logout" />
+        </form>
+    </li>
+</ul>
 </body>
 </html>

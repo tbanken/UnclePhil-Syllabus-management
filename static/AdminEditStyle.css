@@ -3,6 +3,17 @@
 }
 table{
 }
+.header {
+  padding: 30px;
+  text-align: center;
+  background: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.header h1 {
+  font-size: 50px;
+}
 th,tr{
     border: 2px solid black;
     padding: 20px;
@@ -58,3 +69,4 @@ li {
     padding: 14px 16px;
     text-decoration: none;
 }
+

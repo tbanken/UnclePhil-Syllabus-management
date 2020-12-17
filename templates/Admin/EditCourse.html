@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title>Edit Course</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static '/AdminEditStyle.css'%}" />
+    <link rel="stylesheet" href="{% static '/AdminViewUserStyle.css'%}" />
 </head>
 <body>
-<h2>Edit {{ course.name }}</h2>
-
-<table>
+<div class = "header">
+<h1>Edit {{ course.name }}</h1>
+</div>
+<table id = "InstructorList">
         <tr>
             <th>Term</th>
             <th>Number</th>
