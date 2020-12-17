@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>View</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/ViewCourseStyle.css'%}" />
+
 </head>
 <body>
-
-<h2>{{ course.name }} - {{ course.term }}</h2>
-<h2>{{ course.dep_number }}</h2>
-<p>{{ course.description }}</p>
-    <table>
+<div id="card">
+    <h1 class="header">{{ course.dep_number }} {{ course.name }} - {{ course.term }}</h1>
+<br/>
+    <h1>Course Description</h1>
+    <p>{{ course.description }}</p>
+    <table id="Sections">
         <tr>
             <th>Sections</th>
             <th>Instructor/TA</th>
@@ -17,29 +21,59 @@
         {% for s in sections %}
         <tr>
             <td>{{ s.type_of }}-{{ s.number }}: {{ s.days }} {{ s.time }}</td>
-            <td>{{ s.ta.last_name }} {{ s.ta.last_name }} {{ s.instructor.first_name }} {{ s.instructor.last_name }}</td>
+            <td>{{ s.ta.first_name }} {{ s.ta.last_name }} {{ s.instructor.first_name }} {{ s.instructor.last_name }}</td>
         </tr>
         {% endfor %}
     </table>
 
-<h2>Policies</h2>
-<br>
+<h1>Policies</h1>
 {% for p in policies %}
-
     <p>{{ p.policy_text }}</p>
-    <br>
 {% endfor %}
 
-<h2>Instructor</h2>
-<br>
-<h3>{{ course.instructor.first_name }} {{ course.instructor.last_name }}
-    Email: <p>{{ course.instructor.email }}</p>  Office: <p>{{ course.instructor.office }}</p>
-    Office Hours:  <p>{{ course.instructor.office_hours }}</p></h3>
+<h1>Instructor</h1>
+    <table id = "Sections">
+        <tr>
+            <th>Name</th>
+            <th>Office</th>
+            <th>Office Hours</th>
+            <th>Phone Number</th>
+            <th>Email address</th>
+        </tr>
+        <tr>
+            <td>{{ instructor.first_name }} {{ instructor.last_name }}</td>
+            <td>{{ instructor.office }}</td>
+            <td>{{ instructor.office_hours }}</td>
+            <td>{{ instructor.phone }}</td>
+            <td>{{ instructor.email }}</td>
+        </tr>
+    </table>
 
-<h2>Teaching Assistants</h2>
- {% for t in tas %}
-     <h3>{{ t.first_name }} {{ t.last_name }} Email:{{ t.email }} Office:{{ t.office }}
-    Office Hours: {{ t.office_hours }}</h3>
-{% endfor %}
+
+<h1>Teaching Assistants</h1>
+<table id="Sections">
+        <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Office</th>
+            <th>Phone</th>
+            <th>Office Hours</th>
+        </tr>
+        {% for t in tas %}
+        <tr>
+            <td>{{ t.username }}</td>
+            <td>{{ t.password }}</td>
+            <td>{{ t.email }}</td>
+            <td>{{ t.first_name }} {{ user.last_name }}</td>
+            <td>{{ t.office }}</td>
+            <td>{{ t.phone }}</td>
+            <td>{{ t.office_hours }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
 </body>
 </html>
