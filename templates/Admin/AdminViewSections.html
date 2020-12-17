@@ -4,23 +4,54 @@
     <meta charset="UTF-8">
     <title>Sections</title>
 </head>
+    <style>
+
+        body{font-family: sans-serif;}
+        .header1 strong {font-size:26px; }
+        th,td{background-color:white;text-align:left;padding:10px;border-right: 1px solid black;border-bottom: 1px solid black;}
+
+        .logout{position:absolute;top:40px;right:10px;}
+        .logout input{font-size:20px; background:#ccc; border: 1px solid black; border-radius: 4px; }
+
+        .home{position:absolute;top:40px;right:100px;}
+        .home input{font-size:20px; background:#ccc; border: 1px solid black; border-radius: 4px; }
+
+        .menu{padding-bottom:10px;}
+        .menu form{display:inline-block;}
+        .menu input{font-size:20px; background:#ccc; border: 1px solid black; border-radius: 4px; }
+
+        table{width:100%;margin-bottom: 20px;border-top: 1px solid black;border-left: 1px solid black;}
+
+    </style>
 <body>
+    <h1>Manage Sections</h1>
+    <form class="menu" action="/createsection{{ name }}/">
+    <input type="submit" value="Create Section"/>
+    </form>
+
+    <form class ="home" action="/course/">
+        <input type="submit" value="Back"/>
+    </form>
+
+    <form class="logout" action="/logout/">
+    <input type="submit" value="Logout" />
+    </form>
+</div>
+
+
 
     <table>
         <tr>
-            <th></th>
-            <th></th>
             <th>Section</th>
             <th>Instructor/TA</th>
             <th>Days</th>
             <th>Time</th>
             <th></th>
+            <th></th>
         </tr>
 
         {% for s in sections %}
         <tr>
-            <td></td>
-            <td></td>
             <td>{{ s.type_of }}-{{ s.number }}</td>
             <td>{{ s.ta.username }}{{ s.instructor.username }}</td>
             <td>{{ s.days }}</td>
@@ -41,16 +72,5 @@
     </table>
 
 
-    <form action="/createsection{{ name }}/">
-    <input type="submit" value="Create Section"/>
-    </form>
-
-    <form action="/course/">
-        <input type="submit" value="Back"/>
-    </form>
-
-<form action="/logout/">
-    <input type="submit" value="Logout" />
-</form>
 </body>
 </html>
