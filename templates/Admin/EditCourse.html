@@ -4,12 +4,23 @@
     <meta charset="UTF-8">
     <title>Edit Course</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static '/AdminEditStyle.css'%}" />
+    <link rel="stylesheet" href="{% static '/EditPageStyle.css'%}" />
 </head>
 <body>
-<h2>Edit {{ course.name }}</h2>
+<body>
+<div id="editCard"><h1>Edit {{ course.name }}</h1></div>
 
-<table>
+</div>
+    <ul class="topnav">
+        <form action="/course/">
+            <input class="button" type="submit" value="Back"/>
+        </form>
+
+        <form action="/logout/">
+            <input class="button" style="float:right" type="submit" value="Logout" />
+        </form>
+    </ul>
+<table id = "EditList">
         <tr>
             <th>Term</th>
             <th>Number</th>
@@ -31,25 +42,22 @@
 
 <form action="/editcourse{{ course.name }}/" method="post">
     {% csrf_token %}
-<table>
+<table id = "InputList">
         </td></tr>
         <tr><td>Name: </td><td><input type="text" name="name"></td></tr>
         <tr><td>Department and Number(eg CS 123 or MATH 205): </td><td><input type="text" name="dep_number"></td></tr>
         <tr><td>Term(eg Fall 2020): </td><td><input type="text" name="term"></td></tr>
         <tr><td>Description: </td><td><input type="text" name="desc"></td></tr>
-    <tr><td>Instructor: </td><td><select name="instruct" id="instruct">
-    {% for i in instructors %}
-            <option value={{ i.username }}>{{ i.username }}</option>
-    {% endfor %}
-</select></td></tr>
+    <tr><td>Instructor: </td><td>
+        <select name="instruct" id="dropdown">
+            {% for i in instructors %}
+                <option value={{ i.username }}>{{ i.username }}</option>
+            {% endfor %}
+        </select></td></tr>
     </table>
-    <input type="submit">
-</form>
-
-
-
-<form action="/course/">
-        <input type="submit" value="Back"/>
+    <ul class="topnav">
+            <input class="button" type="submit" style="float:right" value="Submit"/>
+    </ul>
 </form>
 </body>
 </html>

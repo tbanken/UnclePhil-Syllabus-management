@@ -3,11 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Add TA</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/EditPageStyle.css'%}" />
 </head>
 <body>
-<h2>Add TA to {{ course.name }}</h2>
-
-<table>
+<div id="editCard"><h1>Add TA to {{ course.name }}</h1></div>
+<ul class = "topnav">
+        <form action="/course/">
+            <input class="button" type="submit" value="Back"/>
+        </form>
+        <form action="/logout/">
+            <input class="button" style="float: right" type="submit" value="Logout" />
+        </form>
+</ul>
+<table id = "EditList">
         <tr>
             <th>Name</th>
             <th>Number</th>
@@ -22,7 +31,6 @@
             <td>{{ course.term }}</td>
             <td>{{ course.instructor.username }}</td>
             <td></td>
-            <td></td>
         </tr>
     </table>
 
@@ -36,14 +44,13 @@
             <option value={{ t.username }}>{{ t.username }}</option>
     {% endfor %}
 </select></td></tr>
-    </table>
-    <input type="submit">
+</table>
+    <ul class = "topnav">
+        <form action="/createcourse/">
+            <input class = "button" type="submit" value="Submit"/>
+        </form>
+
+</ul>
 </form>
-
-
-
-<form action="/course/">
-        <input type="submit" value="Back"/>
-    </form>
 </body>
 </html>

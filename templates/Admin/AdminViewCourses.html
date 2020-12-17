@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <title>Admin Course Page</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static '/AdminViewsStyle.css'%}" />
+    <link rel="stylesheet" href="{% static '/EditPageStyle.css'%}" />
 </head>
 <body>
-<h2>Go to the TA tab to add a TA to a course</h2>
-    <table>
+<div id="editCard"><h1>Admin Course View</h1></div>
+<ul class = "topnav">
+        <form action="/adminhome/">
+            <input class = "button" type="submit" value="Home"/>
+        </form>
+        <form action="/logout/">
+            <input class="button" style="float: right" type="submit" value="Logout" />
+        </form>
+</ul>
+    <table id="EditList">
         <tr>
             <th>Term</th>
             <th>Course</th>
@@ -29,38 +37,32 @@
             <td>{{ c.instructor.username }}</td>
             <td>{{ c.description }}</td>
 
-            <th><form action="/viewtas{{ c.name }}/">
-                    <input type="submit" value="View" />
-                </form></th>
-            <th><form action="/viewsections{{ c.name }}/">
-                    <input type="submit" value="View" />
-                </form></th>
-            <th>
+            <td><form action="/viewtas{{ c.name }}/">
+                    <input class = "button" type="submit" value="View" />
+                </form></td>
+            <td><form action="/viewsections{{ c.name }}/">
+                    <input class = "button" type="submit" value="View" />
+                </form></td>
+            <td>
                 <form action="/editcourse{{ c.name }}/">
-                    <input type="submit" value="Edit" />
+                    <input class = "button" type="submit" value="Edit" />
                 </form>
-            </th>
-            <th>
+            </td>
+            <td>
                 <form action="/deletecourse{{ c.name }}/" method="post">
                     {% csrf_token %}
-                    <input type="submit" value="Delete" />
+                    <input class = "button" type="submit" value="Delete" />
                 </form>
-            </th>
+            </td>
         </tr>
         {% endfor %}
     </table>
 
+<ul class = "topnav">
+        <form action="/createcourse/">
+            <input class = "button" type="submit" value="Create Course"/>
+        </form>
 
-    <form action="/createcourse/">
-    <input type="submit" value="Create Course"/>
-    </form>
-
-    <form action="/adminhome/">
-        <input type="submit" value="Home"/>
-    </form>
-
-<form action="/logout/">
-    <input type="submit" value="Logout" />
-</form>
+</ul>
 </body>
 </html>

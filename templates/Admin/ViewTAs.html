@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/EditPageStyle.css'%}" />
 </head>
 <body>
-<form action="/courseaddta{{ course.name }}/">
-        <input type="submit" value="Add TA"/>
-    </form>
-<table>
+<div class="header">
+    <h1>View TAs in Course</h1>
+</div>
+<ul class="topnav">
+        <form action="/course/">
+            <input class = "button" type="submit" value="Back"/>
+        </form>
+
+        <form action="/logout/">
+            <input class="button" style="float:right" type="submit" value="Logout" />
+        </form>
+</ul>
+<table id = "EditList">
         <tr>
             <th>Username</th>
             <th>Password</th>
@@ -31,12 +42,10 @@
         {% endfor %}
     </table>
 
-<form action="/course/">
-        <input type="submit" value="Back"/>
-    </form>
-
-<form action="/logout/">
-    <input type="submit" value="Logout" />
-</form>
+<ul class = "topnav">
+        <form action="/courseaddta{{ course.name }}/">
+            <input class = "button" type="submit" value="Add TA"/>
+        </form>
+</ul>
 </body>
 </html>

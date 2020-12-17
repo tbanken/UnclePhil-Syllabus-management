@@ -23,7 +23,7 @@ body {
     border-top-right-radius: 5px;
 }
 
-.header h1 {
+h1 {
   font-size: 50px;
 }
 
@@ -67,12 +67,23 @@ input.button {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 15px 25px;
     font-size: 12px;
     text-decoration: none;
     background-size: auto;
     background-color: gray;
     cursor: pointer;
+}
+input {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    font-size: 12px;
+    text-decoration: none;
+    background-size: auto;
+    background-color: #939799;
 }
 
 input.button:hover:not(.active) {
@@ -83,21 +94,22 @@ input.button:hover:not(.active) {
   background-color: #4CAF50;
 }
 
-#InstructorList {
+#EditList {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    padding: 20px;
 }
 
-#InstructorList td, #InstructorList th{
+#EditList td, #EditList th{
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 15px;
 }
-#InstructorList tr:nth-child(even){background-color: #f2f2f2;}
+#EditList tr:nth-child(even){background-color: #f2f2f2;}
 
-#InstructorList tr:hover {background-color: #ddd;}
+#EditList tr:hover {background-color: #ddd;}
 
-#InstructorList th {
+#EditList th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
@@ -114,3 +126,15 @@ input.button:hover:not(.active) {
     margin: 10px;
 
 }
+#InputList {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#InputList td, #InputList th{
+  border: 2px solid black;
+    padding: 20px;
+    align-content: center;
+}
+
