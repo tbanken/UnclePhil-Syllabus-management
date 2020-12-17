@@ -96,7 +96,25 @@ class TestModifyUsers(TestCase):
         with self.assertRaises(ObjectDoesNotExist):
             TA.objects.get(username='ta', password='ta')
 
-    # TODO test user editing as a TA and instructor
+    # TODO test user editing as a TA and instructor TWO BELOW NOT DONE!!!b
+
+    def test_edit_as_instructor(self):
+        session = self.client.session
+        session["user"] = 'Instructor'
+        session.save()
+        self.client.post('/instructoredit/', {'email': 'ta@uwm.edu', 'first_name': 'Tony', 'last_name': 'Stark',
+                                              'office': '', 'phone': '', 'office_hours': ''})
+
+        self.assertEqual(self.user_A.first_name, 'Tony')
+
+    def test_edit_as_ta(self):
+        session = self.client.session
+        session["user"] = 'ta'
+        session.save()
+
+        self.client.post('/taedit/', {'email': 'ta@uwm.edu', 'first_name': 'Tony', 'last_name': 'Stark',
+                                      'office': '', 'phone': '', 'office_hours': ''})
+        self.assertEqual(self.user_b.first_name, 'Tony')
 
 
 class TestModifyCourse(TestCase):
@@ -161,29 +179,36 @@ class TestAssignUser(TestCase):
 
         self.course_B = Course.objects.create(name='MATH', dep_number='413', term='Fall 2020')
 
+        self.section_A = Section.objects.create(type_of='LEC', number='345', days='MW', time='1-1:30pm', course=self.course_B)
+        self.section_B = Section.objects.create(type_of='LAB', number='874', days='MT', time='1-3:30pm',
+                                                course=self.course_B)
+
     def test_assign_instructor(self):
         response = self.client.post('/editcourseMATH/', {'name': '', 'dep_number': '', 'term': '', 'instruct':
-                                    'instructor', 'desc': ''})
+                                                         'instructor', 'desc': ''})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.user_instructor, self.course_B.instructor)
 
-    def test_assign_instructor2(self):
-        pass
-
     def test_assign_ta(self):
-        pass
-
-    def test_assign_ta2(self):
-        pass
+        response = self.client.post('/courseaddtaMATH/', {'ta': 'ta'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(self.course_B.ta_set.get(username='ta'))
 
     def test_assign_another_ta(self):
-        pass
+        response = self.client.post('/courseaddtaMATH/', {'ta': 'ta2'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(self.course_B.ta_set.get(username='ta2'))
 
     def test_sec_assign_instructor(self):
-        pass
+        response = self.client.post('/editsection345-MATH/', {'stype': '', 'number': '', 'days': '', 'time': '', 'user': 'instructor'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.section_A.instructor,self.user_instructor)
 
     def test_sec_assign_ta(self):
-        pass
+        response = self.client.post('/editsection874-MATH/',
+                                    {'stype': '', 'number': '', 'days': '', 'time': '', 'user': 'ta'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.section_B.ta, self.user_ta)
 
 
 class TestModifySyllabusComponent(TestCase):
