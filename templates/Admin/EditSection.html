@@ -4,17 +4,33 @@
     <meta charset="UTF-8">
     <title>Create Section</title>
 </head>
+
+
+<style>
+    body{font-family: sans-serif;}
+
+</style>
 <body>
+
+<h3>Edit Section</h3>
+
 
 <table>
         <tr>
-            <th>Section</th>
-            <th>Instructor/TA</th>
+            <td>Section: </td>
+            <td>{{ sec.type_of }}-{{ sec.number }}</td>
         </tr>
         <tr>
-            <td>{{ sec.type_of }}-{{ sec.number }}</td>
-            <td>{{ sec.ta.username }}{{ sec.instructor.username }}</td>
+        <td>Instructor/TA: </td>
+        <td>{{ sec.ta.username }}{{ sec.instructor.username }}</td>
+        </tr>
+
+        <tr>
+            <td>Meeting Days: </td>
             <td>{{ sec.days }}</td>
+        </tr>
+        <tr>
+            <td>Meeting Times: </td>
             <td>{{ sec.time }}</td>
         </tr>
 </table>
