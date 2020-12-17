@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <title>Admin User Page</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static '/AdminEditStyle.css'%}" />
+    <link rel="stylesheet" href="{% static 'EditPageStyle.css'%}" />
 </head>
 <body>
 <div class="header">
 <h1>Admin User Page</h1>
+
 </div>
-    <table>
+<ul class = "topnav">
+        <form action="/adminhome/">
+            <input class = "button" type="submit" value="Home"/>
+        </form>
+        <form action="/logout/">
+            <input class="button" style="float: right" type="submit" value="Logout" />
+        </form>
+</ul>
+    <table id = "EditList">
         <tr>
             <th>Users</th>
             <th>Role</th>
@@ -20,17 +29,17 @@
 
         {% for i in instructors %}
         <tr>
-            <th>{{ i.username }}</th>
-            <th>Instructor</th>
+            <td>{{ i.username }}</td>
+            <td>Instructor</td>
             <td>
                 <form action="/edituser{{ i.username }}-instructor/">
-                    <input type="submit" value="Edit" />
+                    <input class = "button" type="submit" value="Edit" />
                 </form>
             </td>
             <td>
                 <form action="/deleteuser{{ i.username }}/" method="post">
                     {% csrf_token %}
-                    <input type="submit" value="Delete" />
+                    <input class = "button" type="submit" value="Delete" />
                 </form>
             </td>
         </tr>
@@ -38,39 +47,27 @@
 
     {% for t in tas %}
         <tr>
-            <th>{{ t.username }}</th>
-            <th>TA</th>
+            <td>{{ t.username }}</td>
+            <td>TA</td>
             <td>
                 <form action="/edituser{{ t.username }}-ta/">
-                    <input type="submit" value="Edit" />
+                    <input class = "button" type="submit" value="Edit" />
                 </form>
             </td>
             <td>
                 <form action="/deleteuser{{ t.username }}/" method="post">
                     {% csrf_token %}
-                    <input type="submit" value="Delete" />
+                    <input class = "button" type="submit" value="Delete" />
                 </form>
             </td>
         </tr>
     {% endfor %}
     </table>
 
-    <ul>
-        <li>
-            <form action="/createuser/">
-                <input type="submit" value="Create User"/>
-            </form>
-        </li>
-        <li>
-            <form action="/adminhome/">
-                <input type="submit" value="Home"/>
-            </form>
-        </li>
-        <li>
-            <form action="/logout/">
-                <input type="submit" value="Logout" />
-            </form>
-        </li>
-    </ul>
+<ul class = "topnav">
+        <form action="/createuser/">
+                <input class = "button" type="submit" value="Create User"/>
+        </form>
+</ul>
 </body>
 </html>

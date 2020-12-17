@@ -4,12 +4,20 @@
     <meta charset="UTF-8">
     <title>Edit User</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static '/AdminEditStyle.css'%}" />
+    <link rel="stylesheet" href="{% static '/EditPageStyle.css'%}" />
 </head>
 <body>
-<h2>Edit User {{ user.username }}</h2>
+<div id="editCard"><h1>Edit User: {{ user.username }}</h1></div>
+<ul class="topnav">
+        <form action="/user/">
+            <input class = "button" type="submit" value="Back"/>
+        </form>
 
-<table>
+        <form action="/logout/">
+            <input class="button" style="float:right" type="submit" value="Logout" />
+        </form>
+</ul>
+<table id = "EditList">
         <tr>
             <th>Username</th>
             <th>Password</th>
@@ -39,7 +47,7 @@
 
 <form action="/edituser{{ user.username }}-{{ utype }}/" method="post">
     {% csrf_token %}
-<table>
+<table id = "InputList">
         </td></tr>
         <tr><td>Username: </td><td><input type="text" name="name"></td></tr>
         <tr><td>Password: </td><td><input type="text" name="password"></td></tr>
@@ -50,11 +58,10 @@
         <tr><td>Phone: </td><td><input type="text" name="phone"></td></tr>
         <tr><td>Office Hours: </td><td><input type="text" name="office_hours"></td></tr>
     </table>
-    <input type="submit">
+    <ul class="topnav">
+            <input class="button" type="submit" style="float:right" value="Submit"/>
+    </ul>
 </form>
 
-<form action="/user/">
-        <input type="submit" value="Back"/>
-    </form>
 </body>
 </html>
