@@ -3,9 +3,10 @@
 }
 
 body {
-  font-family: Arial;
+    font-family: Arial, serif;
   padding: 10px;
   background: #f1f1f1;
+
 }
 /* Add a card effect for articles */
 .card {
@@ -13,6 +14,7 @@ body {
   padding: 20px;
   margin-top: 20px;
     border-radius: 5px;
+
 }
 /* Header/Blog Title */
 .header {
@@ -62,7 +64,7 @@ li {
   float: left;
 }
 
-input.button {
+.navButton {
     float: left;
     display: block;
     color: white;
@@ -75,41 +77,52 @@ input.button {
     cursor: pointer;
 }
 
-input.button:hover:not(.active) {
+input:hover:not(.active) {
   background-color: #111;
 }
 
 
-#InstructorList {
+#Courses {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
-       background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    margin: 10px;
-    text-align: center;
 }
 
-#InstructorList td, #InstructorList th{
+#Courses td, #Courses th{
   border: 1px solid #ddd;
   padding: 8px;
-    text-align: center;
 }
-#InstructorList tr:nth-child(even){background-color: #f2f2f2;}
 
-#InstructorList tr:hover {background-color: #ddd;}
+#Courses tr:nth-child(even){background-color: #f2f2f2;}
 
-#InstructorList th {
+
+#Courses th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: center;
   background-color: gray;
   color: white;
+
+
 }
 #editCard {
    background-color: white;
     padding: 20px;
     border-radius: 5px;
+    text-align: center;
     margin: 10px;
+}
+
+#tableButton {
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-size: auto;
+    background-color: gray;
+    cursor: pointer;
+}
+
+#tableButton:hover:not(.active) {
+  background-color: #111;
 }

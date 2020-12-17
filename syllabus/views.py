@@ -345,7 +345,7 @@ class InstructorViewCourses(View):
         username = request.session["user"]
         instructor = Instructor.objects.get(username=username)
         courses = list(Course.objects.filter(instructor=instructor))
-        return render(request, "Courses.html", {"courses": courses})
+        return render(request, "Instructor/InstructorViewCourses.html", {"courses": courses})
 
 
 class InstructorViewTAs(View):

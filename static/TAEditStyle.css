@@ -80,36 +80,31 @@ input.button:hover:not(.active) {
 }
 
 
-#InstructorList {
+#TAList {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
-       background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    margin: 10px;
     text-align: center;
 }
 
-#InstructorList td, #InstructorList th{
+#TAList td, #InstructorInfo th{
   border: 1px solid #ddd;
   padding: 8px;
-    text-align: center;
 }
-#InstructorList tr:nth-child(even){background-color: #f2f2f2;}
+#TAList tr:nth-child(even){background-color: #f2f2f2;}
 
-#InstructorList tr:hover {background-color: #ddd;}
+#TAList tr:hover {background-color: #ddd;}
 
-#InstructorList th {
+#TAList th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: center;
   background-color: gray;
   color: white;
 }
 #editCard {
-   background-color: white;
+    background-color: white;
     padding: 20px;
     border-radius: 5px;
     margin: 10px;
+
 }

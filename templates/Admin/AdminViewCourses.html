@@ -3,47 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Course Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/AdminViewsStyle.css'%}" />
 </head>
-    <style>
-
-        body{font-family: sans-serif;}
-        .header1 strong {font-size:26px; }
-        th,td{background-color:white;text-align:left;padding:10px;border-right: 1px solid black;border-bottom: 1px solid black;}
-
-        .logout{position:absolute;top:40px;right:10px;}
-        .logout input{font-size:20px; background:#ccc; border: 1px solid black; border-radius: 4px; }
-
-        .home{position:absolute;top:40px;right:100px;}
-        .home input{font-size:20px; background:#ccc; border: 1px solid black; border-radius: 4px; }
-
-        .menu{padding-bottom:10px;}
-        .menu form{display:inline-block;}
-        .menu input{font-size:20px; background:#ccc; border: 1px solid black; border-radius: 4px; }
-
-        table{width:100%;margin-bottom: 20px;border-top: 1px solid black;border-left: 1px solid black;}
-
-    </style>
 <body>
-<h1>Manage Courses</h1>
-
-    <div class="menu">
-    <form action="/createcourse/">
-    <input type="submit" value="Create Course"/>
-    </form>
-
-
-
-</div>
-
-    <form class="home" action="/adminhome/">
-        <input type="submit" value="Home"/>
-    </form>
-
-    <form class="logout" action="/logout/">
-    <input type="submit" value="Logout" />
-    </form>
-
-    <table cellpadding="0" cellspacing="0">
+<h2>Go to the TA tab to add a TA to a course</h2>
+    <table>
         <tr>
             <th>Term</th>
             <th>Course</th>
@@ -52,8 +17,8 @@
             <th>Description</th>
             <th>TAs</th>
             <th>Sections</th>
-            <th></th>
-            <th></th>
+            <th>Edit Course</th>
+            <th>Delete Course</th>
         </tr>
 
         {% for c in courses %}
@@ -64,28 +29,38 @@
             <td>{{ c.instructor.username }}</td>
             <td>{{ c.description }}</td>
 
-            <td><form action="/viewtas{{ c.name }}/">
-                    <input type="submit" value="View/Edit" />
-                </form></td>
-            <td><form action="/viewsections{{ c.name }}/">
-                    <input type="submit" value="View/Edit" />
-                </form></td>
-            <td>
+            <th><form action="/viewtas{{ c.name }}/">
+                    <input type="submit" value="View" />
+                </form></th>
+            <th><form action="/viewsections{{ c.name }}/">
+                    <input type="submit" value="View" />
+                </form></th>
+            <th>
                 <form action="/editcourse{{ c.name }}/">
-                    <input type="submit" value="Edit Course" />
+                    <input type="submit" value="Edit" />
                 </form>
-            </td>
-            <td>
+            </th>
+            <th>
                 <form action="/deletecourse{{ c.name }}/" method="post">
                     {% csrf_token %}
                     <input type="submit" value="Delete" />
                 </form>
-            </td>
+            </th>
         </tr>
         {% endfor %}
     </table>
 
 
+    <form action="/createcourse/">
+    <input type="submit" value="Create Course"/>
+    </form>
 
+    <form action="/adminhome/">
+        <input type="submit" value="Home"/>
+    </form>
+
+<form action="/logout/">
+    <input type="submit" value="Logout" />
+</form>
 </body>
 </html>

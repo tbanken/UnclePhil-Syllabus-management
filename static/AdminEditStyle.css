@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+table{
+}
+th,tr{
+    border: 2px solid black;
+    padding: 20px;
+    align-content: center;
+}
+td{
+    border: 2px solid black;
+    text-align: center;
+
+}
+body {
+  font-family: Arial;
+  padding: 10px;
+  background: #f1f1f1;
+}
+
+/* Change color on hover */
+top:hover {
+  background-color: #ddd;
+  color: black;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+    align-items: center;
+}
+
+input {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    font-size: 12px;
+    text-decoration: none;
+    background-size: auto;
+    background-color: gray;
+}
+
+input:hover:not(.active) {
+  background-color: #111;
+}
+
+li {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
