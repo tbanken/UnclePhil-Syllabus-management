@@ -31,11 +31,11 @@
             <tr>
                 <td> {{ p.policy_text }} </td>
                 <td>
-                    <form action="/instructorassignpolicy{{ p.pk }}">
-                        <input type="submit" value="Assign">
-                    </form>
                     <form action="/instructorremovepolicy{{ p.pk }}">
-                        <input type="submit" value="Remove">
+                        <input style="float: right" type="submit" value="Remove">
+                    </form>
+                    <form action="/instructorassignpolicy{{ p.pk }}">
+                        <input style="float: right" type="submit" value="Assign">
                     </form>
                 </td>
             </tr>

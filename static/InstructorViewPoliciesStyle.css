@@ -64,8 +64,6 @@ li {
 }
 
 input {
-    float: left;
-    display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
@@ -78,6 +76,9 @@ input {
 
 input:hover:not(.active) {
   background-color: #111;
+}
+input.navButton {
+    float: left;
 }
 
 #Policies {
@@ -106,5 +107,6 @@ input:hover:not(.active) {
     border-radius: 5px;
     text-align: center;
     margin: 10px;
-
 }
+
+
