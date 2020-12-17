@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Course Page</title>
-
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/CoursesStyle.css'%}" />
 </head>
 <body>
-
-<table>
+<div class="header">
+    <h1>Available Courses</h1>
+</div>
+     <ul class="topnav">
+        <form action="/logout/">
+            <input class="navButton" style="float:left" type="submit" value="Back" />
+        </form>
+    </ul>
+<table id="editCard">
         {% for c in courses %}
         <tr>
             <td><form action="/courses/{{ c.term }}/{{ c.dep_number }}">
-                    <input type="submit" value="{{ c.term }} {{ c.dep_number }} {{ c.name }} {{ c.instructor.username }}" />
+                    <input class="card" type="submit" value="{{ c.term }} | {{ c.dep_number }} {{ c.name }} | Instructor: {{ c.instructor.username }}" />
                 </form></td>
         </tr>
         {% endfor %}
